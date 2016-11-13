@@ -8,7 +8,7 @@ const   express = require('express'),
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
-app.use(express.static('../frontend'));
+app.use(express.static(__dirname + '/../frontend'));
 app.use('/api/', router);
 
 app.routes = router;

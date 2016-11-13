@@ -9,6 +9,7 @@
     "url": "https://github.com/pedrokehl/starter-nodejs-rest"
   },
   "scripts": {
+    "start": "node backend/server",
     "nodemon": "nodemon backend/server"
   },
   "dependencies": {
