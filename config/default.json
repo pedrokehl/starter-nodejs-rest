@@ -1,0 +1,11 @@
+{
+  "mongo": {
+    "server": "localhost",
+    "port": 27017,
+    "database": "yourDatabase"
+  },
+  "jwt": {
+    "secret": "TOP-SECRET",
+    "expiresIn": 18000
+  }
+}

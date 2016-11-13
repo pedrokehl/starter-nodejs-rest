@@ -1,0 +1,26 @@
+{
+  "name": "Starter for a Node.js RESTful Application",
+  "version": "1.0.0",
+  "description": "A boilerplate for Node.js REST application with MongoDB and JSON Web Token",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pedrokehl/REST-starter"
+  },
+  "author": "Pedro Affonso Kehl",
+  "scripts": {
+    "nodemon": "nodemon server"
+  },
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "~1.15.1",
+    "consign": "^0.1.2",
+    "express": "~4.13.4",
+    "jsonwebtoken": "^7.1.9",
+    "mongodb": "^2.2.10",
+    "q": "^1.4.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  },
+  "main": "server.js"
+}
