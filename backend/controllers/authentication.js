@@ -31,8 +31,7 @@ function login(req, res) {
                 });
             }
             res.status(201).send({
-                token: createToken(user),
-                user: user.username
+                token: jwtValidation.createToken(user.username)
             });
         })
     });
