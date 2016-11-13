@@ -1,7 +1,7 @@
 Starter for a NODE.js REST Application
 =======================
 
-A boilerplate for REST applications using [Node.js](https://nodejs.org/), [MongoDB](https://www.mongodb.com/) and [JSON Web Tokens](https://jwt.io/).
+A boilerplate using [Node.js](https://nodejs.org/), [MongoDB](https://www.mongodb.com/) and [JSON Web Tokens](https://jwt.io/) to save your time.
 
 ### Features:
 * MongoDB connection with easy configuration
