@@ -3,6 +3,7 @@ const   express = require('express'),
         bodyParser = require('body-parser'),
         consign = require('consign'),
         db = require('./bin/mongo'),
+        jwtValidation = require('./bin/jwtValidation'),
         router = express.Router(),
         app = express();
 
@@ -12,6 +13,7 @@ app.use(express.static(__dirname + '/../frontend'));
 app.use('/api/', router);
 
 app.routes = router;
+app.jwtValidation = jwtValidation;
 
 db.connect(function (err) {
     if (err) {
