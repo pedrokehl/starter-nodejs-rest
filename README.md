@@ -27,3 +27,7 @@ A boilerplate for REST applications using [Node.js](https://nodejs.org/), [Mongo
     
     # Start your mongoDB and then simply start your app
     node server
+    
+### What's next?
+* Recover account endpoint
+* Routes/Controllers examples with and without token validation
