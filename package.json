@@ -1,12 +1,13 @@
 {
-  "name": "Starter for a Node.js RESTful Application",
+  "name": "starter-nodejs-rest",
   "version": "1.0.0",
-  "description": "A boilerplate for Node.js REST application with MongoDB and JSON Web Token",
+  "description": "Starter for a Node.js RESTful Application using MongoDB and JSON Web Token",
+  "license": "MIT",
+  "author": "Pedro Affonso Kehl",
   "repository": {
     "type": "git",
-    "url": "https://github.com/pedrokehl/REST-starter"
+    "url": "https://github.com/pedrokehl/starter-nodejs-rest"
   },
-  "author": "Pedro Affonso Kehl",
   "scripts": {
     "nodemon": "nodemon server"
   },
