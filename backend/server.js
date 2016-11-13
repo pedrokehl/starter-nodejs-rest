@@ -8,7 +8,7 @@ const   express = require('express'),
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
-app.use(express.static('./public'));
+app.use(express.static('../frontend'));
 app.use('/api/', router);
 
 app.routes = router;
@@ -20,7 +20,7 @@ db.connect(function (err) {
     }
 });
 
-consign().include('controllers').then('routes').into(app);
+consign({cwd: 'backend'}).include('controllers').then('routes').into(app);
 
 // catch 404
 app.use(function (req, res) {

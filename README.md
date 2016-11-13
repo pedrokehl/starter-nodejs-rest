@@ -7,7 +7,7 @@ A boilerplate using [Node.js](https://nodejs.org/), [MongoDB](https://www.mongod
 * MongoDB connection with easy configuration
 * public folder to create your front-end
 * Token validation to protect your API
-* Easy project structure to create routes and controllers in differents folders
+* Easy project structure to create routes and controllers in separate files
 * Login and registration
 
 ### Requirements
