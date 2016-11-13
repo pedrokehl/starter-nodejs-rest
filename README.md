@@ -26,7 +26,7 @@ A boilerplate using [Node.js](https://nodejs.org/), [MongoDB](https://www.mongod
     npm install
     
     # Start your mongoDB and then simply start your app
-    node server
+    npm start
     
 ### What's next?
 * Recover account endpoint
