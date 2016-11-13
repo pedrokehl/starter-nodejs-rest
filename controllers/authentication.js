@@ -58,7 +58,6 @@ function register(req, res) {
 }
 
 function validateToken(req, res, next) {
-    console.log(req.headers);
     var token = req.body.token || req.query.token || req.headers['x-access-token'];
 
     if (!token) {
@@ -71,7 +70,6 @@ function validateToken(req, res, next) {
         if (err) {
             return res.json({ success: false, message: 'Failed to authenticate token.' });
         } else {
-            console.log(decoded);
             req.decoded = decoded;
             next();
         }

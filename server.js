@@ -9,7 +9,7 @@ const   express = require('express'),
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static('./public'));
-app.use('/api/v1/', router);
+app.use('/api/', router);
 
 app.routes = router;
 

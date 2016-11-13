@@ -30,4 +30,3 @@ A boilerplate using [Node.js](https://nodejs.org/), [MongoDB](https://www.mongod
     
 ### What's next?
 * Recover account endpoint
-* Routes/Controllers examples with and without token validation
