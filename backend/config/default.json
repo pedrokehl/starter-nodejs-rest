@@ -6,6 +6,6 @@
   },
   "jwt": {
     "secret": "TOP-SECRET",
-    "expiresIn": 18000
+    "expiresIn": 600
   }
 }

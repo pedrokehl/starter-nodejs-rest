@@ -1,8 +1,7 @@
-const   jwt = require('jsonwebtoken'),
-        userRepository = require('../repositories/user'),
-        config = require('../config/default'),
+const   userRepository = require('../repositories/user'),
         bcrypt = require('bcrypt-nodejs'),
-        q = require('q');
+        q = require('q'),
+        jwtValidation = require('../bin/jwtValidation');
 
 module.exports = {
     login: login,
@@ -13,17 +12,23 @@ function login(req, res) {
     var user = req.body;
 
     if (!user.username || !user.password) {
-        return res.status(400).send("You must send the username and the password");
+        return res.status(400).send({
+            errorMessage: "You must send the username and the password"
+        });
     }
 
     userRepository.findOne(user).then(function(userFound) {
         if (!userFound) {
-            return res.status(400).send('User not found');
+            return res.status(400).send({
+                errorMessage: 'User not found'
+            });
         }
 
         comparePassword(userFound, user.password).then(function(isMatch) {
             if(!isMatch) {
-                return res.status(400).send('Invalid Password');
+                return res.status(400).send({
+                    errorMessage: 'Invalid Password'
+                });
             }
             res.status(201).send({
                 token: createToken(user),
@@ -37,20 +42,28 @@ function register(req, res) {
     var user = req.body;
 
     if (!user.username || !user.password) {
-        return res.status(400).send("You must send the username and the password");
+        return res.status(400).send({
+            errorMessage: "You must send the username and the password"
+        });
     }
 
     userRepository.findOne(user).then(function(result) {
         if(result) {
-            return res.status(400).send('A user with that username already exists');
+            return res.status(400).send({
+                errorMessage: 'A user with that username already exists'
+            });
         }
 
         hashUserPassword(user)
         .then(userRepository.insert)
         .then(function() {
             res.status(201).send({
-                token: createToken(user),
-                user: user.username
+                token: jwtValidation.createToken(user.username)
+            });
+        })
+        .catch(function(err) {
+            res.status(400).send({
+                errorMessage: 'error -' + err
             });
         })
     });
@@ -68,22 +81,20 @@ function comparePassword(user, password) {
     return deferred.promise;
 }
 
-function createToken(user) {
-    delete user.password;
-    return jwt.sign(user, config.jwt.secret, { expiresIn: config.jwt.expiresIn });
-}
-
 function hashUserPassword(user) {
     const SALT_FACTOR = 5;
 
     var deferred = q.defer();
 
     bcrypt.genSalt(SALT_FACTOR, function(err, salt) {
-        if(err) deferred.reject(new Error(err));
         bcrypt.hash(user.password, salt, null, function(err, hash) {
-            if(err) deferred.reject(new Error(err));
-            user.password = hash;
-            deferred.resolve(user);
+            if(err) {
+                deferred.reject(new Error(err));
+            }
+            else {
+                user.password = hash;
+                deferred.resolve(user);
+            }
         });
     });
 

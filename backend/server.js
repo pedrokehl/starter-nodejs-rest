@@ -13,7 +13,7 @@ app.use(express.static(__dirname + '/../frontend'));
 app.use('/api/', router);
 
 app.routes = router;
-app.jwtValidation = jwtValidation;
+app.validateToken = jwtValidation.validateToken;
 
 db.connect(function (err) {
     if (err) {
@@ -26,7 +26,9 @@ consign({cwd: 'backend'}).include('controllers').then('routes').into(app);
 
 // catch 404
 app.use(function (req, res) {
-    res.send({error: 404, message: 'Page Not Found'});
+    res.status(404).send({
+        errorMessage: 'Page Not Found'
+    });
 });
 
 var server = http.createServer(app);
