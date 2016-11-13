@@ -25,5 +25,5 @@ A boilerplate for REST applications using [Node.js](https://nodejs.org/), [Mongo
     # Install NPM dependencies
     npm install
     
-    # Then simply start your app
+    # Start your mongoDB and then simply start your app
     node server
