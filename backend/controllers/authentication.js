@@ -1,8 +1,8 @@
-const jwt = require('jsonwebtoken');
-const userRepository = require('../repositories/user');
-const config = require('../config/default');
-const bcrypt = require('bcrypt-nodejs');
-const q = require('q');
+const   jwt = require('jsonwebtoken'),
+        userRepository = require('../repositories/user'),
+        config = require('../config/default'),
+        bcrypt = require('bcrypt-nodejs'),
+        q = require('q');
 
 module.exports = {
     login: login,

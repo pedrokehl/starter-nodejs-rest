@@ -1,5 +1,5 @@
-const db = require('../bin/mongo');
-const q = require('q');
+const   db = require('../bin/mongo'),
+        q = require('q');
 
 module.exports = {
     findOne: findOne,
