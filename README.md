@@ -25,8 +25,5 @@ A boilerplate for REST applications using [Node.js](https://nodejs.org/), [Mongo
     # Install NPM dependencies
     npm install
     
-    # Or, if you prefer to use `yarn` instead of `npm`
-    yarn install
-    
     # Then simply start your app
     node server
