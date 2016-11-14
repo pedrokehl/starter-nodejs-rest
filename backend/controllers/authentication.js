@@ -1,5 +1,5 @@
 const   bcrypt = require('bcryptjs'),
-        jwtValidation = require('../bin/jwtValidation'),
+        jwtValidation = require('../core/jwt'),
         userRepository = require('../repositories/user');
 
 module.exports = {

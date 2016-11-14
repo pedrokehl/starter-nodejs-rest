@@ -2,25 +2,19 @@ const   express = require('express'),
         http = require('http'),
         bodyParser = require('body-parser'),
         consign = require('consign'),
-        db = require('./bin/mongo'),
-        jwtValidation = require('./bin/jwtValidation'),
+        db = require('./core/mongo'),
+        jwt = require('./core/jwt'),
         router = express.Router(),
         app = express();
 
+db.connect();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(__dirname + '/../frontend'));
 app.use('/api/', router);
 
 app.routes = router;
-app.validateToken = jwtValidation.validateToken;
-
-db.connect(function (err) {
-    if (err) {
-        console.log(err.message);
-        process.exit(1);
-    }
-});
+app.validateToken = jwt.validateToken;
 
 consign({cwd: 'backend'}).include('controllers').then('routes').into(app);
 

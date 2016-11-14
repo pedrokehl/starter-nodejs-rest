@@ -1,4 +1,4 @@
-const   db = require('../bin/mongo'),
+const   db = require('../core/mongo'),
         q = require('q');
 
 module.exports = {

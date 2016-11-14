@@ -12,30 +12,17 @@ var username = config.mongo.username,
 var dbObject;
 
 module.exports = {
-    close: close,
     connect: connect,
     get: get
 };
 
-function close(done) {
-    if (dbObject) {
-        dbObject.close(function (err, result) {
-            dbObject = null;
-            done(err);
-        })
-    }
-}
-
-function connect(done) {
-    if (dbObject) {
-        return done();
-    }
+function connect() {
     mongoClient.connect(url, function (err, db) {
         if (err) {
-            return done(err);
+            console.log(err.message);
+            process.exit(1);
         }
         dbObject = db;
-        done();
     })
 }
 
