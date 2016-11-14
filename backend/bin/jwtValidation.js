@@ -21,7 +21,7 @@ function validateToken(req, res, next) {
 
     jwt.verify(token, config.jwt.secret, function(err, decoded) {
         if (err) {
-            res.send({
+            res.status(403).send({
                 errorMessage: 'Failed to authenticate token.'
             });
         } else {

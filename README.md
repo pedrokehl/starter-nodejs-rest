@@ -28,5 +28,9 @@ A boilerplate using [Node.js](https://nodejs.org/), [MongoDB](https://www.mongod
     # Start your mongoDB and then simply start your app
     npm start
     
+### Things to do when implementing with this starter
+* Change JWT secret
+* Make sure that when you're trying to access a protected endpoint, you send your token and then refresh it with the response.
+    
 ### What's next?
 * Recover account endpoint

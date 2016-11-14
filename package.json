@@ -13,7 +13,7 @@
     "nodemon": "nodemon backend/server"
   },
   "dependencies": {
-    "bcrypt-nodejs": "0.0.3",
+    "bcryptjs": "^2.3.0",
     "body-parser": "~1.15.1",
     "consign": "^0.1.2",
     "express": "~4.13.4",
