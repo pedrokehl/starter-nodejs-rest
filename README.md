@@ -5,10 +5,11 @@ A boilerplate using [Node.js](https://nodejs.org/), [MongoDB](https://www.mongod
 
 ### Features:
 * MongoDB connection with easy configuration
-* public folder to create your front-end
+* Front-end folder will use the same host of your API
 * Token validation to protect your API
 * Easy project structure to create routes and controllers in separate files
 * Login and registration
+* Recover account sending an email with an unique token
 
 ### Requirements
 * [NodeJS and NPM](http://nodejs.org/download)
@@ -27,6 +28,3 @@ A boilerplate using [Node.js](https://nodejs.org/), [MongoDB](https://www.mongod
     
     # Start your mongoDB and then simply start your app
     npm start
-    
-### What's next?
-* Recover account endpoint

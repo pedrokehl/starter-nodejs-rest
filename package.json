@@ -16,9 +16,10 @@
     "bcryptjs": "^2.3.0",
     "body-parser": "~1.15.1",
     "consign": "^0.1.2",
-    "express": "~4.13.4",
+    "express": "~4.14.0",
     "jsonwebtoken": "^7.1.9",
     "mongodb": "^2.2.10",
+    "nodemailer": "^2.6.4",
     "q": "^1.4.1"
   },
   "devDependencies": {
