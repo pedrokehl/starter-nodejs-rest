@@ -141,11 +141,7 @@ function reset(req, res) {
                 res.status(200).send({
                     message: "Password changed."
                 });
-            }).catch(function () {
-                return res.status(400).send({
-                    errorMessage: "User not found"
-                });
-            })
+            });
         }
     });
 }
