@@ -118,7 +118,6 @@ function register(req, res) {
 }
 
 function reset(req, res) {
-    var token = req.body.token;
     var user = {
         username: req.body.username,
         password: req.body.password
@@ -133,7 +132,7 @@ function reset(req, res) {
     userRepository.findOne({username: user.username}).then(function(userFound) {
         if(!userFound) {
             return res.status(400).send({
-                errorMessage: "You must send the username and the token"
+                errorMessage: "You must send the username"
             });
         }
         jwt.validateToken(req, res, updateUserPassword, userFound.password);
