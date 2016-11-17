@@ -16,7 +16,7 @@ function checkReset(req, res) {
     userRepository.findOne({username: req.params.username}).then(function(userFound) {
         if(!userFound) {
             return res.status(401).send({
-                errorMessage: "Token not provided"
+                errorMessage: "User not found"
             });
         }
         jwt.validateToken(req, res, sendStatus, userFound.password);
@@ -58,9 +58,7 @@ function forgot(req, res) {
         email(emailInfo);
     });
 
-    res.status(200).send({
-        message: 'If you have entered a valid email, you will receive a link to recover your account in a few minutes'
-    });
+    res.status(200).send();
 }
 
 function login(req, res) {
@@ -138,9 +136,7 @@ function reset(req, res) {
         function updateUserPassword() {
             userFound.password = bcrypt.hashSync(user.password, 5);
             userRepository.update({username: userFound.username}, userFound).then(function () {
-                res.status(200).send({
-                    message: "Password changed."
-                });
+                res.status(200).send();
             });
         }
     });
