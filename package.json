@@ -9,8 +9,8 @@
     "url": "https://github.com/pedrokehl/starter-nodejs-rest"
   },
   "scripts": {
-    "start": "node backend/server",
-    "nodemon": "nodemon backend/server"
+    "start": "node server/server.js",
+    "nodemon": "nodemon server/server.js"
   },
   "dependencies": {
     "bcryptjs": "^2.3.0",
@@ -25,5 +25,5 @@
   "devDependencies": {
     "nodemon": "^1.11.0"
   },
-  "main": "backend/server.js"
+  "main": "server/server.js"
 }

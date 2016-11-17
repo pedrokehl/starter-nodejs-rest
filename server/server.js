@@ -15,7 +15,7 @@ app.use('/api/', router);
 app.routes = router;
 app.token = token;
 
-consign({cwd: 'backend'}).include('controllers').then('routes').into(app);
+consign({cwd: 'server'}).include('controllers').then('routes').into(app);
 
 // catch 404
 app.use(function (req, res) {
