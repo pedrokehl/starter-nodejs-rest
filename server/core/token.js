@@ -14,7 +14,7 @@ function createToken(object, expiresIn, secret) {
 }
 
 function validateToken(req, res, next, secret) {
-    var token = req.body.token || req.params.token || req.query.token || req.headers['x-access-token'];
+    var token = req.body.token || req.params.token || req.query.token || req.headers['authorization'];
 
     if (!token) {
         return res.status(403).send({

@@ -22,7 +22,7 @@ function checkReset(req, res) {
         jwt.validateToken(req, res, sendStatus, userFound.password);
 
         function sendStatus() {
-            res.status(200).send({message: 'Ok to reset password'});
+            res.status(200).send();
         }
     });
 }
@@ -79,9 +79,8 @@ function login(req, res) {
             });
         }
         else if (bcrypt.compareSync(user.password, userFound.password)) {
-            res.status(200).send({
-                token: jwt.createToken({username: user.username})
-            });
+            res.header('authorization', jwt.createToken({username: user.username}));
+            res.status(200).send();
         }
         else {
             res.status(400).send({
@@ -110,9 +109,8 @@ function register(req, res) {
         user.password = bcrypt.hashSync(user.password, 5);
 
         userRepository.insert(user).then(function() {
-            res.status(201).send({
-                token: jwt.createToken({username: user.username})
-            });
+            res.header('authorization', jwt.createToken({username: user.username}));
+            res.status(201).send();
         });
     });
 }
@@ -139,9 +137,13 @@ function reset(req, res) {
 
         function updateUserPassword() {
             userFound.password = bcrypt.hashSync(user.password, 5);
-            userRepository.update(userFound.username, userFound).then(function () {
+            userRepository.update({username: userFound.username}, userFound).then(function () {
                 res.status(200).send({
                     message: "Password changed."
+                });
+            }).catch(function () {
+                return res.status(400).send({
+                    errorMessage: "User not found"
                 });
             })
         }

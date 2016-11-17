@@ -7,7 +7,6 @@ function sendEmail(emailInfo) {
     nodemailer.createTransport(config.email).sendMail(emailInfo, function(error) {
         if(error){
             console.log(error.response);
-            process.exit(1);
         }
     })
 }
