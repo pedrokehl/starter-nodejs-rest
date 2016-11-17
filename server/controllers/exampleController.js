@@ -5,7 +5,6 @@ module.exports = {
 
 function protected(req, res) {
     res.status(200).send({
-        token: req.token,
         message: 'Great! You have access for this protected endpoint'
     });
 }

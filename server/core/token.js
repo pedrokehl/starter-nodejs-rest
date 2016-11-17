@@ -39,7 +39,7 @@ function validateToken(req, res, next, secret) {
 
 function validateAndRefresh(req, res, next) {
     validateToken(req, res, function () {
-        req.token = createToken({username: req.decoded.username});
+        res.header('authorization', createToken({username: req.decoded.username}));
         next();
     });
 }
