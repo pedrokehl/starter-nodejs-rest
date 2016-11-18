@@ -1,7 +1,7 @@
 var bcrypt = require('bcryptjs'),
-    jwt = require('../core/token'),
+    jwt = require('../middlewares/token'),
     userRepository = require('../repositories/user'),
-    email = require('../core/email'),
+    email = require('../middlewares/email'),
     url = require('url');
 
 module.exports = {
@@ -12,28 +12,22 @@ module.exports = {
     reset: reset
 };
 
-function checkReset(req, res) {
+function checkReset(req, res, next) {
     userRepository.findOne({username: req.params.username}).then(function(userFound) {
         if(!userFound) {
-            return res.status(401).send({
-                errorMessage: "User not found"
-            });
+            next({status: 401, content: 'User not found'});
         }
-        jwt.validateToken(req, res, sendStatus, userFound.password);
-
-        function sendStatus() {
-            res.status(200).send();
-        }
-    });
+        jwt.validateToken(req, userFound.password).then(function () {
+            res.status(200).end();
+        }).catch(next);
+    }).catch(next);
 }
 
-function forgot(req, res) {
+function forgot(req, res, next) {
     var user = req.body;
 
     if(!user.email) {
-        return res.status(400).send({
-            errorMessage: "You must send the email"
-        });
+        return next({status: 400, content: 'You must send the email'});
     }
 
     userRepository.findOne({email: user.email}).then(function(userFound) {
@@ -56,88 +50,72 @@ function forgot(req, res) {
         };
 
         email(emailInfo);
-    });
+    }).catch(next);
 
-    res.status(200).send();
+    res.status(200).end();
 }
 
-function login(req, res) {
+function login(req, res, next) {
     var user = req.body;
 
     if (!user.username || !user.password) {
-        return res.status(400).send({
-            errorMessage: "You must send the username and the password"
-        });
+        return next({status: 400, content: 'You must send the username and the password'});
     }
 
     userRepository.findOne({username: user.username}).then(function(userFound) {
         if (!userFound) {
-            res.status(400).send({
-                errorMessage: 'User not found'
-            });
+            next({status: 401, content: 'User not found'});
         }
         else if (bcrypt.compareSync(user.password, userFound.password)) {
             res.header('authorization', jwt.createToken({username: user.username}));
-            res.status(200).send();
+            res.status(200).end();
         }
         else {
-            res.status(400).send({
-                errorMessage: 'Invalid Password'
-            });
+            next({status: 400, content: 'Invalid Password'});
         }
-    });
+    }).catch(next);
 }
 
-function register(req, res) {
+function register(req, res, next) {
     var user = req.body;
 
     if (!user.username || !user.password) {
-        return res.status(400).send({
-            errorMessage: "You must send the username and the password"
-        });
+        return next({status: 400, content: 'You must send the username and the password'});
     }
 
     userRepository.findOne({username: user.username}).then(function(result) {
         if(result) {
-            return res.status(400).send({
-                errorMessage: 'A user with that username already exists'
-            });
+            return next({status: 400, content: 'A user with that username already exists'});
         }
 
         user.password = bcrypt.hashSync(user.password, 5);
 
         userRepository.insert(user).then(function() {
             res.header('authorization', jwt.createToken({username: user.username}));
-            res.status(201).send();
-        });
-    });
+            res.status(201).end();
+        }).catch(next);
+    }).catch(next);
 }
 
-function reset(req, res) {
+function reset(req, res, next) {
     var user = {
         username: req.body.username,
         password: req.body.password
     };
 
     if (!user.username || !user.password) {
-        return res.status(400).send({
-            errorMessage: "You must send the username and the password"
-        });
+        return next({status: 400, content: 'You must send the username and the password'});
     }
 
     userRepository.findOne({username: user.username}).then(function(userFound) {
         if(!userFound) {
-            return res.status(400).send({
-                errorMessage: "You must send the username"
-            });
+            return next({status: 400, content: 'You must send the username and the password'});
         }
-        jwt.validateToken(req, res, updateUserPassword, userFound.password);
-
-        function updateUserPassword() {
+        jwt.validateToken(req, userFound.password).then(function () {
             userFound.password = bcrypt.hashSync(user.password, 5);
             userRepository.update({username: userFound.username}, userFound).then(function () {
-                res.status(200).send();
-            });
-        }
-    });
+                res.status(200).end();
+            }).catch(next);
+        }).catch(next);
+    }).catch(next);
 }

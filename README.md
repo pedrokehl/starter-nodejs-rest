@@ -28,3 +28,10 @@ A boilerplate using [Node.js](https://nodejs.org/), [MongoDB](https://www.mongod
     
     # Start your mongoDB and then simply start your app
     npm start
+    
+### What's next?
+
+* Change project structure by modules
+* Better use of Q
+* HTML e-mail template
+* Change use of HashSync to HashAsync

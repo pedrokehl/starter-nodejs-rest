@@ -4,13 +4,9 @@ module.exports = {
 };
 
 function protected(req, res) {
-    res.status(200).send({
-        message: 'Great! You have access for this protected endpoint'
-    });
+    res.status(200).json('Great! You have access for this protected endpoint').end();
 }
 
 function unprotected(req, res) {
-    res.status(200).send({
-        message: 'You have free access for this endpoint'
-    });
+    res.status(200).json('You have free access for this endpoint').end();
 }

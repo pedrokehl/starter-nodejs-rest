@@ -1,4 +1,4 @@
-var mongo = require('../core/database'),
+var mongo = require('../middlewares/database'),
     q = require('q');
 
 module.exports = {
@@ -11,7 +11,7 @@ function findOne(user) {
     var deferred = q.defer();
     mongo.get().collection('users').findOne(user, function (err, result) {
         if(err) {
-            deferred.reject(new Error(err));
+            deferred.reject(err);
         }
         else {
             deferred.resolve(result);
@@ -24,7 +24,7 @@ function insert(user) {
     var deferred = q.defer();
     mongo.get().collection('users').insertOne(user, function (err, result) {
         if(err) {
-            deferred.reject(new Error(err));
+            deferred.reject(err);
         }
         else {
             deferred.resolve(result);
@@ -37,7 +37,7 @@ function update(user, updateValues) {
     var deferred = q.defer();
     mongo.get().collection('users').updateOne(user, updateValues, function (err, result) {
         if(err) {
-            deferred.reject(new Error(err));
+            deferred.reject(err);
         }
         else {
             deferred.resolve(result);

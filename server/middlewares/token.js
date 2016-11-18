@@ -1,10 +1,12 @@
 var jwt = require('jsonwebtoken'),
-    config = require('../config/default');
+    config = require('../config/default'),
+    q = require('q');
 
 module.exports = {
     createToken: createToken,
-    validateToken: validateToken,
-    validateAndRefresh: validateAndRefresh
+    validateAndRefresh: validateAndRefresh,
+    validateRequest: validateRequest,
+    validateToken: validateToken
 };
 
 function createToken(object, expiresIn, secret) {
@@ -13,33 +15,33 @@ function createToken(object, expiresIn, secret) {
     return jwt.sign(object, secret, { expiresIn: expiresIn });
 }
 
-function validateToken(req, res, next, secret) {
+function validateToken(req, secret) {
+    var deferred = q.defer();
     var token = req.body.token || req.params.token || req.query.token || req.headers['authorization'];
-
-    if (!token) {
-        return res.status(403).send({
-            errorMessage: 'No token provided.'
-        });
-    }
 
     secret = secret || config.jwt.secret;
 
     jwt.verify(token, secret, function(err, decoded) {
         if (err) {
-            res.status(403).send({
-                errorMessage: 'Failed to authenticate token.'
-            });
+            deferred.reject({status: 403});
         }
         else {
             req.decoded = decoded;
-            next();
+            deferred.resolve();
         }
     });
+    return deferred.promise;
+}
+
+function validateRequest(req, res, next) {
+    validateToken(req)
+        .then(next)
+        .catch(next);
 }
 
 function validateAndRefresh(req, res, next) {
-    validateToken(req, res, function () {
+    validateToken(req).then(function () {
         res.header('authorization', createToken({username: req.decoded.username}));
         next();
-    });
+    }).catch(next);
 }

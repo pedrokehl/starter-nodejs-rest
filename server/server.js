@@ -1,8 +1,9 @@
 var express = require('express'),
     bodyParser = require('body-parser'),
     consign = require('consign'),
-    database = require('./core/database'),
-    token = require('./core/token'),
+    database = require('./middlewares/database'),
+    errorHandler = require('./middlewares/errorHandler'),
+    token = require('./middlewares/token'),
     router = express.Router(),
     app = express();
 
@@ -19,10 +20,10 @@ consign({cwd: 'server'}).include('controllers').then('routes').into(app);
 
 // catch 404
 app.use(function (req, res) {
-    res.status(404).send({
-        errorMessage: 'Page Not Found'
-    });
+    res.status(404).json({error: 'Page Not Found'}).end();
 });
+
+app.use(errorHandler);
 
 var port = process.env.PORT || '3000';
 
