@@ -10,7 +10,7 @@ A boilerplate using [Node.js](https://nodejs.org/), [MongoDB](https://www.mongod
 * Easy project structure to create routes and controllers in separate files
 * Login and registration
 * Recover account sending an email with an unique token
-* Easy production environment configuration
+* Easy environment configuration
 
 ### Requirements
 * [NodeJS and NPM](http://nodejs.org/download)
