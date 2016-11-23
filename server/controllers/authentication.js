@@ -18,8 +18,8 @@ function checkReset(req, res, next) {
             next({status: 401, content: 'User not found'});
         }
         jwt.validateToken(req, userFound.password).then(function () {
-            res.status(200).end();
-        }).catch(next);
+            res.end();
+        });
     }).catch(next);
 }
 
@@ -52,7 +52,7 @@ function forgot(req, res, next) {
         email(emailInfo);
     }).catch(next);
 
-    res.status(200).end();
+    res.end();
 }
 
 function login(req, res, next) {
@@ -68,7 +68,7 @@ function login(req, res, next) {
         }
         else if (bcrypt.compareSync(user.password, userFound.password)) {
             res.header('authorization', jwt.createToken({username: user.username}));
-            res.status(200).end();
+            res.end();
         }
         else {
             next({status: 400, content: 'Invalid Password'});
@@ -93,7 +93,7 @@ function register(req, res, next) {
         userRepository.insert(user).then(function() {
             res.header('authorization', jwt.createToken({username: user.username}));
             res.status(201).end();
-        }).catch(next);
+        });
     }).catch(next);
 }
 
@@ -114,8 +114,8 @@ function reset(req, res, next) {
         jwt.validateToken(req, userFound.password).then(function () {
             userFound.password = bcrypt.hashSync(user.password, 5);
             userRepository.update({username: userFound.username}, userFound).then(function () {
-                res.status(200).end();
-            }).catch(next);
-        }).catch(next);
+                res.end();
+            });
+        });
     }).catch(next);
 }

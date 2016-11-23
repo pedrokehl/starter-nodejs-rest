@@ -8,40 +8,13 @@ module.exports = {
 };
 
 function findOne(user) {
-    var deferred = q.defer();
-    mongo.get().collection('users').findOne(user, function (err, result) {
-        if(err) {
-            deferred.reject(err);
-        }
-        else {
-            deferred.resolve(result);
-        }
-    });
-    return deferred.promise;
+    return mongo.get().collection('users').findOne(user);
 }
 
 function insert(user) {
-    var deferred = q.defer();
-    mongo.get().collection('users').insertOne(user, function (err, result) {
-        if(err) {
-            deferred.reject(err);
-        }
-        else {
-            deferred.resolve(result);
-        }
-    });
-    return deferred.promise;
+    return mongo.get().collection('users').insertOne(user);
 }
 
 function update(user, updateValues) {
-    var deferred = q.defer();
-    mongo.get().collection('users').updateOne(user, updateValues, function (err, result) {
-        if(err) {
-            deferred.reject(err);
-        }
-        else {
-            deferred.resolve(result);
-        }
-    });
-    return deferred.promise;
+    return mongo.get().collection('users').updateOne(user, updateValues);
 }

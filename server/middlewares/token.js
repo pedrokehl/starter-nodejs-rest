@@ -1,5 +1,5 @@
 var jwt = require('jsonwebtoken'),
-    config = require('../config/default'),
+    config = require('../config'),
     q = require('q');
 
 module.exports = {

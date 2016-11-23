@@ -1,5 +1,5 @@
 var mongoClient = require('mongodb').MongoClient,
-    config = require('../config/default');
+    config = require('../config');
 
 var username = config.mongo.username,
     password = config.mongo.password,

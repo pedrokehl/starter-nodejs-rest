@@ -1,0 +1,20 @@
+{
+  "mongo": {
+    "server": "localhost",
+    "port": 27017,
+    "database": "yourDatabase"
+  },
+  "jwt": {
+    "secret": "TOP-SECRET",
+    "expiresIn": 600
+  },
+  "email": {
+    "host": "smtp.gmail.com",
+    "port": 465,
+    "secure": true,
+    "auth": {
+      "user": "your-email@gmail.com",
+      "pass": "your-password"
+    }
+  }
+}

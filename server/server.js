@@ -4,17 +4,16 @@ var express = require('express'),
     database = require('./middlewares/database'),
     errorHandler = require('./middlewares/errorHandler'),
     token = require('./middlewares/token'),
-    router = express.Router(),
     app = express();
 
 database.connect();
+app.routes = express.Router();
+app.token = token;
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(__dirname + '/../frontend'));
-app.use('/api/', router);
-
-app.routes = router;
-app.token = token;
+app.use('/api/', app.routes);
 
 consign({cwd: 'server'}).include('controllers').then('routes').into(app);
 
