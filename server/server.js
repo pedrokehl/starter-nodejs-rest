@@ -20,11 +20,11 @@ consign({cwd: 'server'})
     .then('routes')
     .into(app);
 
-app.use(function (req, res, next) {
-    next({status: 404});
-});
-
 app.use(errorHandler);
+
+app.use(function (req, res) {
+    res.status(404).end();
+});
 
 var port = process.env.PORT || 3000;
 

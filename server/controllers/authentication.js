@@ -1,7 +1,7 @@
-var bcrypt = require('bcryptjs'),
+var crypt = require('../middlewares/crypt'),
+    email = require('../middlewares/email'),
     jwt = require('../middlewares/token'),
     userRepository = require('../repositories/user'),
-    email = require('../middlewares/email'),
     url = require('url');
 
 module.exports = {
@@ -19,7 +19,7 @@ function checkReset(req, res, next) {
         }
         jwt.validateToken(req, userFound.password).then(function () {
             res.end();
-        });
+        }).catch(next);
     }).catch(next);
 }
 
@@ -66,13 +66,10 @@ function login(req, res, next) {
         if (!userFound) {
             next({status: 401, content: 'User not found'});
         }
-        else if (bcrypt.compareSync(user.password, userFound.password)) {
+        crypt.compare(user.password, userFound.password).then(function() {
             res.header('authorization', jwt.createToken({username: user.username}));
             res.end();
-        }
-        else {
-            next({status: 400, content: 'Invalid Password'});
-        }
+        }).catch(next);
     }).catch(next);
 }
 
@@ -88,12 +85,13 @@ function register(req, res, next) {
             return next({status: 400, content: 'A user with that username already exists'});
         }
 
-        user.password = bcrypt.hashSync(user.password, 5);
-
-        userRepository.insert(user).then(function() {
-            res.header('authorization', jwt.createToken({username: user.username}));
-            res.status(201).end();
-        });
+        crypt.hash(user.password).then(function(result) {
+            user.password = result;
+            userRepository.insert(user).then(function() {
+                res.header('authorization', jwt.createToken({username: user.username}));
+                res.status(201).end();
+            }).catch(next);
+        }).catch(next);
     }).catch(next);
 }
 
@@ -112,10 +110,12 @@ function reset(req, res, next) {
             return next({status: 400, content: 'You must send the username and the password'});
         }
         jwt.validateToken(req, userFound.password).then(function () {
-            userFound.password = bcrypt.hashSync(user.password, 5);
-            userRepository.update({username: userFound.username}, userFound).then(function () {
-                res.end();
-            });
-        });
+            crypt.hash(user.password).then(function(result) {
+                userFound.password = result;
+                userRepository.update({username: userFound.username}, userFound).then(function () {
+                    res.end();
+                }).catch(next);
+            }).catch(next);
+        }).catch(next);
     }).catch(next);
 }
