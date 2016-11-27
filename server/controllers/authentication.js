@@ -64,7 +64,7 @@ function login(req, res, next) {
 
     userRepository.findOne({username: user.username}).then(function(userFound) {
         if (!userFound) {
-            next({status: 401, content: 'User not found'});
+            return next({status: 401, content: 'User not found'});
         }
         crypt.compare(user.password, userFound.password).then(function() {
             res.header('authorization', jwt.createToken({username: user.username}));
