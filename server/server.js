@@ -1,4 +1,5 @@
 const   bodyParser = require('body-parser'),
+        compression = require('compression'),
         consign = require('consign'),
         database = require('./middlewares/database'),
         errorHandler = require('./middlewares/errorHandler'),
@@ -10,6 +11,7 @@ database.connect();
 app.routes = express.Router();
 app.token = token;
 
+app.use(compression());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(__dirname + '/../frontend'));
