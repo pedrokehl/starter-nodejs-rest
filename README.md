@@ -36,4 +36,3 @@ A boilerplate using [Node.js](https://nodejs.org/), [MongoDB](https://www.mongod
 * Change project structure by modules
 * HTML e-mail template
 * Improve use of Q library
-* Start using ES6
