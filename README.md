@@ -11,6 +11,7 @@ A boilerplate using [Node.js](https://nodejs.org/), [MongoDB](https://www.mongod
 * Login and registration
 * Recover account sending an email with an unique token
 * Easy environment configuration
+* Usage of ES6's features
 
 ### Requirements
 * [NodeJS and NPM](http://nodejs.org/download)

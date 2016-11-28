@@ -1,10 +1,10 @@
-var express = require('express'),
-    bodyParser = require('body-parser'),
-    consign = require('consign'),
-    database = require('./middlewares/database'),
-    errorHandler = require('./middlewares/errorHandler'),
-    token = require('./middlewares/token'),
-    app = express();
+const   bodyParser = require('body-parser'),
+        consign = require('consign'),
+        database = require('./middlewares/database'),
+        errorHandler = require('./middlewares/errorHandler'),
+        express = require('express'),
+        token = require('./middlewares/token'),
+        app = express();
 
 database.connect();
 app.routes = express.Router();
@@ -22,12 +22,12 @@ consign({cwd: 'server'})
 
 app.use(errorHandler);
 
-app.use(function (req, res) {
+app.use((req, res) => {
     res.status(404).end();
 });
 
-var port = process.env.PORT || 3000;
+const port = process.env.PORT || 3000;
 
-app.listen(port, function() {
-    console.log('Express server listening on port %d in %s mode.', port, app.get('env'));
+app.listen(port, () => {
+    console.log(`Express server listening on port ${port} in ${app.get('env')} mode.`);
 });

@@ -1,5 +1,5 @@
-module.exports = function (app) {
-    var authentication = app.controllers.authentication;
+module.exports = (app) => {
+    let authentication = app.controllers.authentication;
     app.routes.post('/forgot', authentication.forgot);
     app.routes.post('/login', authentication.login);
     app.routes.post('/register', authentication.register);

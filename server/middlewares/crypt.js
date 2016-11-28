@@ -1,5 +1,5 @@
-var bcrypt = require('bcryptjs'),
-    q = require('q');
+const   bcrypt = require('bcryptjs'),
+        q = require('q');
 
 module.exports = {
     compare: compare,
@@ -7,8 +7,8 @@ module.exports = {
 };
 
 function compare(string, hash) {
-    var deferred = q.defer();
-    bcrypt.compare(string, hash, function(err, result) {
+    let deferred = q.defer();
+    bcrypt.compare(string, hash, (err, result) => {
         if (!result || err) {
             deferred.reject({status: 403});
         }
@@ -20,9 +20,9 @@ function compare(string, hash) {
 }
 
 function hash(string) {
-    var salt = 5;
-    var deferred = q.defer();
-    bcrypt.hash(string, salt, function(err, result) {
+    const salt = 5;
+    const deferred = q.defer();
+    bcrypt.hash(string, salt, (err, result) => {
         if (err) {
             deferred.reject({status: 403});
         }

@@ -1,5 +1,5 @@
-var production = require('./production');
-    development = require('./development');
+const   production = require('./production');
+        development = require('./development');
 
 module.exports = getConfig();
 

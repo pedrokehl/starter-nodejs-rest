@@ -1,15 +1,15 @@
-var mongoClient = require('mongodb').MongoClient,
-    config = require('../config');
+const   mongoClient = require('mongodb').MongoClient,
+        config = require('../config');
 
-var username = config.mongo.username,
-    password = config.mongo.password,
-    server = config.mongo.server,
-    port = config.mongo.port,
-    database = config.mongo.database,
-    auth = username ? username + ':' + password + '@' : '',
-    url = 'mongodb://' + auth + server + ':' + port + '/' + database;
+const   username = config.mongo.username,
+        password = config.mongo.password,
+        server = config.mongo.server,
+        port = config.mongo.port,
+        database = config.mongo.database,
+        auth = username ? username + ':' + password + '@' : '',
+        url = 'mongodb://' + auth + server + ':' + port + '/' + database;
 
-var dbObject;
+let dbObject;
 
 module.exports = {
     connect: connect,
@@ -17,7 +17,7 @@ module.exports = {
 };
 
 function connect() {
-    mongoClient.connect(url, function (err, db) {
+    mongoClient.connect(url, (err, db) => {
         if (err) {
             console.log(err.message);
             process.exit(1);

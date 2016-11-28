@@ -1,4 +1,4 @@
-var mongo = require('../middlewares/database');
+const mongo = require('../middlewares/database');
 
 module.exports = {
     findOne: findOne,
