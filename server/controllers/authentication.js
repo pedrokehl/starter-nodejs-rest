@@ -111,8 +111,7 @@ function reset(req, res, next) {
         }
         jwt.validateToken(req, userFound.password).then(() => {
             crypt.hash(user.password).then((result) => {
-                userFound.password = result;
-                userRepository.update({ username: userFound.username }, userFound).then(() => {
+                userRepository.update({ username: userFound.username }, { password: result }).then(() => {
                     res.end();
                 }).catch(next);
             }).catch(next);

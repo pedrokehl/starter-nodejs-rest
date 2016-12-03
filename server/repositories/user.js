@@ -9,7 +9,7 @@ function insert(user) {
 }
 
 function update(user, updateValues) {
-    return mongo.get().collection('users').updateOne(user, updateValues);
+    return mongo.get().collection('users').updateOne(user, { $set: updateValues });
 }
 
 module.exports = {
