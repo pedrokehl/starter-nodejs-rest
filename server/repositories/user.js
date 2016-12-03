@@ -1,3 +1,4 @@
+'use strict';
 const mongo = require('../middlewares/database');
 
 module.exports = {

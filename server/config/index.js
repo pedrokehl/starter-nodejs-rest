@@ -1,4 +1,5 @@
-const   production = require('./production');
+'use strict';
+const   production = require('./production'),
         development = require('./development');
 
 module.exports = getConfig();

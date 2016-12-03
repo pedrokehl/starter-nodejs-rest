@@ -1,3 +1,4 @@
+'use strict';
 const   jwt = require('jsonwebtoken'),
         config = require('../config'),
         q = require('q');

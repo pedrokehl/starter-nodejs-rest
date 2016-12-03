@@ -1,3 +1,4 @@
+'use strict';
 module.exports = (app) => {
     let authentication = app.controllers.authentication;
     app.routes.post('/forgot', authentication.forgot);

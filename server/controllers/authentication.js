@@ -1,3 +1,4 @@
+'use strict';
 const   crypt = require('../middlewares/crypt'),
         email = require('../middlewares/email'),
         jwt = require('../middlewares/token'),

@@ -1,3 +1,4 @@
+'use strict';
 const   bodyParser = require('body-parser'),
         compression = require('compression'),
         consign = require('consign'),
@@ -14,7 +15,7 @@ app.token = token;
 app.use(compression());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
-app.use(express.static(__dirname + '/../frontend'));
+app.use(express.static(__dirname + '/../client'));
 app.use('/api/', app.routes);
 
 consign({cwd: 'server'})
@@ -31,5 +32,5 @@ app.use((req, res) => {
 const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
-    console.log(`Express server listening on port ${port} in ${app.get('env')} mode.`);
+    console.log('Express server listening on port %d in %s mode.', port, app.get('env'));
 });
