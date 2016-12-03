@@ -12,6 +12,7 @@ A boilerplate using [Node.js](https://nodejs.org/), [MongoDB](https://www.mongod
 * Recover account sending an email with an unique token
 * Easy environment configuration
 * Usage of ES6's features
+* AirBNB code style
 
 ### Requirements
 * [NodeJS and NPM](http://nodejs.org/download)
@@ -36,3 +37,5 @@ A boilerplate using [Node.js](https://nodejs.org/), [MongoDB](https://www.mongod
 * Change project structure by modules
 * HTML e-mail template
 * Improve use of Q library
+* Client side example with React
+* Add use of ES6 classes

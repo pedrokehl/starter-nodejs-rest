@@ -1,13 +1,12 @@
-'use strict';
-module.exports = {
-    protected: protected,
-    unprotected: unprotected
-};
-
-function protected(req, res) {
+function getProtected(req, res) {
     res.send('Great! You have access for this protected endpoint');
 }
 
-function unprotected(req, res) {
+function getUnprotected(req, res) {
     res.send('You have free access for this endpoint');
 }
+
+module.exports = {
+    getProtected,
+    getUnprotected
+};

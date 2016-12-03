@@ -1,26 +1,18 @@
-'use strict';
-const   jwt = require('jsonwebtoken'),
-        config = require('../config'),
-        q = require('q');
-
-module.exports = {
-    createToken: createToken,
-    validateAndRefresh: validateAndRefresh,
-    validateRequest: validateRequest,
-    validateToken: validateToken
-};
+const jwt = require('jsonwebtoken');
+const config = require('../config');
+const q = require('q');
 
 function createToken(object, expiresIn = config.jwt.expiresIn, secret = config.jwt.secret) {
-    return jwt.sign(object, secret, { expiresIn: expiresIn });
+    return jwt.sign(object, secret, { expiresIn });
 }
 
 function validateToken(req, secret = config.jwt.secret) {
     const deferred = q.defer();
-    const token = req.body.token || req.params.token || req.query.token || req.headers['authorization'];
+    const token = req.body.token || req.params.token || req.headers.authorization;
 
     jwt.verify(token, secret, (err, decoded) => {
         if (err) {
-            deferred.reject({status: 403});
+            deferred.reject({ status: 403 });
         }
         else {
             req.decoded = decoded;
@@ -38,7 +30,14 @@ function validateRequest(req, res, next) {
 
 function validateAndRefresh(req, res, next) {
     validateToken(req).then(() => {
-        res.header('authorization', createToken({username: req.decoded.username}));
+        res.header('authorization', createToken({ username: req.decoded.username }));
         next();
     }).catch(next);
 }
+
+module.exports = {
+    createToken,
+    validateAndRefresh,
+    validateRequest,
+    validateToken,
+};

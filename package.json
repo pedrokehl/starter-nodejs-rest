@@ -24,6 +24,11 @@
     "q": "^1.4.1"
   },
   "devDependencies": {
+    "eslint": "^3.11.1",
+    "eslint-config-airbnb": "^13.0.0",
+    "eslint-plugin-import": "^2.1.0",
+    "eslint-plugin-jsx-a11y": "^2.2.3",
+    "eslint-plugin-react": "^6.6.0",
     "nodemon": "^1.11.0"
   },
   "main": "server/server.js"

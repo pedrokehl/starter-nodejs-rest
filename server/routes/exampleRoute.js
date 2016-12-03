@@ -1,6 +1,5 @@
-'use strict';
 module.exports = (app) => {
-    let exampleController = app.controllers.exampleController;
-    app.routes.get('/protected', app.token.validateAndRefresh, exampleController.protected);
-    app.routes.get('/unprotected', exampleController.unprotected);
+    const exampleController = app.controllers.exampleController;
+    app.routes.get('/protected', app.token.validateAndRefresh, exampleController.getProtected);
+    app.routes.get('/unprotected', exampleController.getUnprotected);
 };

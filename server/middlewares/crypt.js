@@ -1,17 +1,11 @@
-'use strict';
-const   bcrypt = require('bcryptjs'),
-        q = require('q');
+const bcrypt = require('bcryptjs');
+const q = require('q');
 
-module.exports = {
-    compare: compare,
-    hash: hash
-};
-
-function compare(string, hash) {
-    let deferred = q.defer();
-    bcrypt.compare(string, hash, (err, result) => {
+function compare(string, hashValue) {
+    const deferred = q.defer();
+    bcrypt.compare(string, hashValue, (err, result) => {
         if (!result || err) {
-            deferred.reject({status: 403});
+            deferred.reject({ status: 403 });
         }
         else {
             deferred.resolve();
@@ -25,7 +19,7 @@ function hash(string) {
     const deferred = q.defer();
     bcrypt.hash(string, salt, (err, result) => {
         if (err) {
-            deferred.reject({status: 403});
+            deferred.reject({ status: 403 });
         }
         else {
             deferred.resolve(result);
@@ -33,3 +27,8 @@ function hash(string) {
     });
     return deferred.promise;
 }
+
+module.exports = {
+    compare,
+    hash,
+};

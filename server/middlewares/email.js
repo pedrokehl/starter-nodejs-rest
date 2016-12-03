@@ -1,13 +1,12 @@
-'use strict';
-const   nodemailer = require('nodemailer'),
-        config = require('../config');
-
-module.exports = sendMail;
+const nodemailer = require('nodemailer');
+const config = require('../config');
 
 function sendMail(emailInfo) {
     nodemailer.createTransport(config.email).sendMail(emailInfo, (error) => {
-        if(error){
-            console.log(error.response);
+        if (error) {
+            console.error(error.response);
         }
-    })
+    });
 }
+
+module.exports = sendMail;

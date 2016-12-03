@@ -1,6 +1,5 @@
-'use strict';
 module.exports = (app) => {
-    let authentication = app.controllers.authentication;
+    const authentication = app.controllers.authentication;
     app.routes.post('/forgot', authentication.forgot);
     app.routes.post('/login', authentication.login);
     app.routes.post('/register', authentication.register);
