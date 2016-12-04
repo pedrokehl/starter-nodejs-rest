@@ -1,29 +1,40 @@
 const crypt = require('../middlewares/crypt');
 const email = require('../middlewares/email');
 const jwt = require('../middlewares/token');
+const q = require('q');
 const userRepository = require('../repositories/user');
+const userValidation = require('../validations/user');
 const url = require('url');
 
 function checkReset(req, res, next) {
-    userRepository.findOne({ username: req.params.username }).then((userFound) => {
-        if (!userFound) {
-            next({ status: 401, content: 'User not found' });
-        }
-        jwt.validateToken(req, userFound.password).then(() => {
+    const user = {
+        username: req.params.username
+    };
+
+    function validateToken(userFound) {
+        return jwt.validateToken(req, userFound.password);
+    }
+
+    userRepository.findOne(user)
+        .then(userValidation.validateToLogin)
+        .then(validateToken)
+        .then(() => {
             res.end();
-        }).catch(next);
-    }).catch(next);
+        })
+        .catch(next);
 }
 
 function forgot(req, res, next) {
-    const user = req.body;
+    const user = {
+        email: req.body.email
+    };
 
     if (!user.email) {
         next({ status: 400, content: 'You must send the email' });
         return;
     }
 
-    userRepository.findOne({ email: user.email }).then((userFound) => {
+    userRepository.findOne(user).then((userFound) => {
         if (!userFound) {
             return;
         }
@@ -50,47 +61,49 @@ function forgot(req, res, next) {
 }
 
 function login(req, res, next) {
-    const user = req.body;
+    const user = {
+        username: req.body.username,
+        password: req.body.password,
+    };
 
-    if (!user.username || !user.password) {
-        next({ status: 400, content: 'You must send the username and the password' });
-        return;
+    function comparePassword(userFound) {
+        return crypt.compare(user.password, userFound.password);
     }
 
-    userRepository.findOne({ username: user.username }).then((userFound) => {
-        if (!userFound) {
-            next({ status: 401, content: 'User not found' });
-            return;
-        }
-        crypt.compare(user.password, userFound.password).then(() => {
+    userValidation.validateRequired(user)
+        .then(userRepository.findOne)
+        .then(userValidation.validateToLogin)
+        .then(comparePassword)
+        .then(() => {
             res.header('authorization', jwt.createToken({ username: user.username }));
             res.end();
-        }).catch(next);
-    }).catch(next);
+        })
+        .catch(next);
 }
 
 function register(req, res, next) {
     const user = req.body;
 
-    if (!user.username || !user.password) {
-        next({ status: 400, content: 'You must send the username and the password' });
-        return;
+    function hashPassword() {
+        return crypt.hash(user.password);
     }
 
-    userRepository.findOne({ username: user.username }).then((dbResult) => {
-        if (dbResult) {
-            next({ status: 400, content: 'A user with that username already exists' });
-            return;
-        }
+    function setHashedPassword(hash) {
+        user.password = hash;
+        return q.resolve(user);
+    }
 
-        crypt.hash(user.password).then((hashResult) => {
-            user.password = hashResult;
-            userRepository.insert(user).then(() => {
-                res.header('authorization', jwt.createToken({ username: user.username }));
-                res.status(201).end();
-            }).catch(next);
-        }).catch(next);
-    }).catch(next);
+    userValidation.validateRequired(user)
+        .then(userRepository.findOne)
+        .then(userValidation.validateToInsert)
+        .then(hashPassword)
+        .then(setHashedPassword)
+        .then(userRepository.insert)
+        .then(() => {
+            res.header('authorization', jwt.createToken({ username: user.username }));
+            res.status(201).end();
+        })
+        .catch(next);
 }
 
 function reset(req, res, next) {
@@ -99,24 +112,28 @@ function reset(req, res, next) {
         password: req.body.password,
     };
 
-    if (!user.username || !user.password) {
-        next({ status: 400, content: 'You must send the username and the password' });
-        return;
+    function validateToken(userFound) {
+        return jwt.validateToken(req, userFound.password);
     }
 
-    userRepository.findOne({ username: user.username }).then((userFound) => {
-        if (!userFound) {
-            next({ status: 400, content: 'You must send the username and the password' });
-            return;
-        }
-        jwt.validateToken(req, userFound.password).then(() => {
-            crypt.hash(user.password).then((result) => {
-                userRepository.update({ username: userFound.username }, { password: result }).then(() => {
-                    res.end();
-                }).catch(next);
-            }).catch(next);
-        }).catch(next);
-    }).catch(next);
+    function hashPassword() {
+        return crypt.hash(user.password);
+    }
+
+    function updateUser(hashResult) {
+        return userRepository.update({ username: user.username }, { password: hashResult });
+    }
+
+    userValidation.validateRequired(user)
+        .then(userRepository.findOne)
+        .then(userValidation.validateToLogin)
+        .then(validateToken)
+        .then(hashPassword)
+        .then(updateUser)
+        .then(() => {
+            res.end();
+        })
+        .catch(next);
 }
 
 module.exports = {

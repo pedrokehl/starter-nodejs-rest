@@ -1,6 +1,9 @@
 const mongo = require('../middlewares/database');
 
 function findOne(user) {
+    if (typeof (user) !== 'object') {
+        user = { username: user };
+    }
     return mongo.get().collection('users').findOne(user);
 }
 
