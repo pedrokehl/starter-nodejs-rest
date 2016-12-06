@@ -31,5 +31,5 @@ app.use((req, res) => {
 const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
-    console.log('Express server listening on port %d in %s mode.', port, app.get('env'));
+    console.log(`Express server listening on port ${port} in ${app.get('env')} mode.`);
 });

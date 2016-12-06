@@ -1,9 +1,10 @@
 const mongo = require('../middlewares/database');
 
+function findByUsername(username) {
+    return mongo.get().collection('users').findOne({ username });
+}
+
 function findOne(user) {
-    if (typeof (user) !== 'object') {
-        user = { username: user };
-    }
     return mongo.get().collection('users').findOne(user);
 }
 
@@ -16,6 +17,7 @@ function update(user, updateValues) {
 }
 
 module.exports = {
+    findByUsername,
     findOne,
     insert,
     update,

@@ -7,15 +7,13 @@ const userValidation = require('../validations/user');
 const url = require('url');
 
 function checkReset(req, res, next) {
-    const user = {
-        username: req.params.username
-    };
+    const username = req.params.username;
 
     function validateToken(userFound) {
         return jwt.validateToken(req, userFound.password);
     }
 
-    userRepository.findOne(user)
+    userRepository.findByUsername(username)
         .then(userValidation.validateToLogin)
         .then(validateToken)
         .then(() => {
@@ -71,7 +69,7 @@ function login(req, res, next) {
     }
 
     userValidation.validateRequired(user)
-        .then(userRepository.findOne)
+        .then(userRepository.findByUsername)
         .then(userValidation.validateToLogin)
         .then(comparePassword)
         .then(() => {
@@ -94,7 +92,7 @@ function register(req, res, next) {
     }
 
     userValidation.validateRequired(user)
-        .then(userRepository.findOne)
+        .then(userRepository.findByUsername)
         .then(userValidation.validateToInsert)
         .then(hashPassword)
         .then(setHashedPassword)
@@ -125,7 +123,7 @@ function reset(req, res, next) {
     }
 
     userValidation.validateRequired(user)
-        .then(userRepository.findOne)
+        .then(userRepository.findByUsername)
         .then(userValidation.validateToLogin)
         .then(validateToken)
         .then(hashPassword)

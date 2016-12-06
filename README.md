@@ -5,7 +5,7 @@ A boilerplate using [Node.js](https://nodejs.org/), [MongoDB](https://www.mongod
 
 ### Features:
 * MongoDB connection with easy configuration
-* Front-end folder will use the same host of your API
+* Client folder will use the same host of your API
 * Token validation to protect your API
 * Easy project structure to create routes and controllers in separate files
 * Login and registration
@@ -34,7 +34,5 @@ A boilerplate using [Node.js](https://nodejs.org/), [MongoDB](https://www.mongod
     
 ### What's next?
 
-* Change project structure by modules
 * HTML e-mail template
 * Client side example with React
-* Add use of ES6 classes
