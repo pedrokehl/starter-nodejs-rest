@@ -25,11 +25,11 @@ consign({ cwd: 'server' })
 app.use(errorHandler);
 
 app.use((req, res) => {
-    res.status(404).end();
+  res.status(404).end();
 });
 
 const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
-    console.log(`Express server listening on port ${port} in ${app.get('env')} mode.`);
+  console.log(`Express server listening on port ${port} in ${app.get('env')} mode.`);
 });

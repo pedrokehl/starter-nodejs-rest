@@ -3,7 +3,6 @@
     "rules": {
         "brace-style": ["error", "stroustrup"],
         "comma-dangle": "off",
-        "indent": ["error", 4],
         "linebreak-style": "off",
         "max-len": ["error", 120],
         "no-console": "off",
