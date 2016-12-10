@@ -54,7 +54,7 @@ function forgot(req, res, next) {
       recoveryUrl,
     };
 
-    email.sendMail(emailConfig, emailData, 'recoveryEmail');
+    email.sendMail(emailConfig, emailData, 'email-reset.html');
   }).catch(next);
 
   res.end();
@@ -93,6 +93,21 @@ function register(req, res, next) {
     return q.resolve(user);
   }
 
+  function sendWelcome() {
+    if (user.email) {
+      const emailConfig = {
+        to: user.email,
+        subject: `[Starter] - Welcome ${user.username}`
+      };
+
+      const emailData = {
+        name: user.username,
+      };
+
+      email.sendMail(emailConfig, emailData, 'welcome.html');
+    }
+  }
+
   userValidation.validateRequired(user)
       .then(userRepository.findByUsername)
       .then(userValidation.validateToInsert)
@@ -102,6 +117,7 @@ function register(req, res, next) {
       .then(() => {
         res.header('authorization', jwt.createToken({ username: user.username }));
         res.status(201).end();
+        sendWelcome();
       })
       .catch(next);
 }

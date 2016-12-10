@@ -2,10 +2,10 @@ const bodyParser = require('body-parser');
 const compression = require('compression');
 const consign = require('consign');
 const database = require('./middlewares/database');
+const email = require('./middlewares/email');
 const errorHandler = require('./middlewares/errorHandler');
 const express = require('express');
 const token = require('./middlewares/token');
-const email = require('./middlewares/email');
 
 const app = express();
 
