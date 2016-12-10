@@ -5,8 +5,11 @@ const database = require('./middlewares/database');
 const errorHandler = require('./middlewares/errorHandler');
 const express = require('express');
 const token = require('./middlewares/token');
+const email = require('./middlewares/email');
 
 const app = express();
+
+email.init();
 database.connect();
 app.routes = express.Router();
 app.token = token;

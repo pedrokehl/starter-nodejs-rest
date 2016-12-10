@@ -45,14 +45,16 @@ function forgot(req, res, next) {
       pathname: `reset/${userFound.username}/${token}`,
     });
 
-    const emailInfo = {
-      from: '"Starter NODE.js REST" <starter.nodejs.rest@gmail.com>',
+    const emailConfig = {
       to: user.email,
-      subject: '[Starter] - Recover your password',
-      html: `<a href="${recoveryUrl}" target="_blank">Click here to recover your account.</a>`,
+      subject: '[Starter] - Recover your password'
     };
 
-    email(emailInfo);
+    const emailData = {
+      recoveryUrl,
+    };
+
+    email.sendMail(emailConfig, emailData, 'recoveryEmail');
   }).catch(next);
 
   res.end();

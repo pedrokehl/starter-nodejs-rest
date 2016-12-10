@@ -1,7 +1,7 @@
 Starter for a NODE.js REST Application
 =======================
 
-A boilerplate using [Node.js](https://nodejs.org/), [MongoDB](https://www.mongodb.com/) and [JSON Web Tokens](https://jwt.io/) to save your time.
+Boilerplate using [Node.js](https://nodejs.org/), [MongoDB](https://www.mongodb.com/) and [JSON Web Token](https://jwt.io/).
 
 ### Features:
 * MongoDB connection with easy configuration
@@ -12,7 +12,8 @@ A boilerplate using [Node.js](https://nodejs.org/), [MongoDB](https://www.mongod
 * Recover account sending an email with an unique token
 * Easy environment configuration
 * Usage of ES6's features
-* AirBNB code style
+* Airbnb code style
+* HTML email template
 
 ### Requirements
 * [NodeJS and NPM](http://nodejs.org/download)
@@ -34,5 +35,4 @@ A boilerplate using [Node.js](https://nodejs.org/), [MongoDB](https://www.mongod
     
 ### What's next?
 
-* HTML e-mail template
 * Client side example with React
