@@ -11,9 +11,9 @@ function getTemplate(templateName) {
 function setTemplate(folder, filename, transporter) {
   fs.readFile(folder + filename, 'utf8', (errFile, data) => {
     const templateSender = transporter.templateSender(
-            { html: data },
-            { from: '"Starter NODE.js REST" <starter.nodejs.rest@gmail.com>' }
-        );
+        { html: data },
+        { from: '"Starter NODE.js REST" <starter.nodejs.rest@gmail.com>' }
+    );
 
     templates.push({
       filename,
