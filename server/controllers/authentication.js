@@ -1,7 +1,6 @@
 const crypt = require('../services/crypt');
 const email = require('../services/email');
 const tokenService = require('../services/token');
-const q = require('q');
 const userRepository = require('../repositories/user');
 const userValidation = require('../validations/user');
 const url = require('url');
@@ -17,14 +16,14 @@ function checkReset(req, res, next) {
 }
 
 function forgot(req, res, next) {
-    const user = {
-        email: req.body.email
-    };
+    const user = { email: req.body.email };
 
     if (!user.email) {
         next({ status: 400, content: 'You must send the email' });
         return;
     }
+
+    res.end();
 
     userRepository.findOne(user).then((userFound) => {
         if (!userFound) {
@@ -46,8 +45,6 @@ function forgot(req, res, next) {
 
         email.sendMail(emailConfig, { recoveryUrl }, 'email-reset.html');
     }).catch(next);
-
-    res.end();
 }
 
 function login(req, res, next) {
@@ -110,9 +107,7 @@ function reset(req, res, next) {
         .then(userFound => tokenService.validateToken(req, userFound.password))
         .then(() => crypt.hash(user.password))
         .then(hashResult => userRepository.update({ username: user.username }, { password: hashResult }))
-        .then(() => {
-            res.end();
-        })
+        .then(() => res.end())
         .catch(next);
 }
 
