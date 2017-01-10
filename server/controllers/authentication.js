@@ -1,6 +1,6 @@
-const crypt = require('../middlewares/crypt');
-const email = require('../middlewares/email');
-const jwt = require('../middlewares/token');
+const crypt = require('../services/crypt');
+const email = require('../services/email');
+const tokenService = require('../services/token');
 const q = require('q');
 const userRepository = require('../repositories/user');
 const userValidation = require('../validations/user');
@@ -10,7 +10,7 @@ function checkReset(req, res, next) {
   const username = req.params.username;
 
   function validateToken(userFound) {
-    return jwt.validateToken(req, userFound.password);
+    return tokenService.validateToken(req, userFound.password);
   }
 
   userRepository.findByUsername(username)
@@ -37,7 +37,7 @@ function forgot(req, res, next) {
       return;
     }
 
-    const token = jwt.createToken({ username: userFound.username }, 86400, userFound.password);
+    const token = tokenService.createToken({ username: userFound.username }, 86400, userFound.password);
 
     const recoveryUrl = url.format({
       protocol: req.protocol,
@@ -75,7 +75,7 @@ function login(req, res, next) {
       .then(userValidation.validateToLogin)
       .then(comparePassword)
       .then(() => {
-        res.header('authorization', jwt.createToken({ username: user.username }));
+        res.header('authorization', tokenService.createToken({ username: user.username }));
         res.end();
       })
       .catch(next);
@@ -115,7 +115,7 @@ function register(req, res, next) {
       .then(setHashedPassword)
       .then(userRepository.insert)
       .then(() => {
-        res.header('authorization', jwt.createToken({ username: user.username }));
+        res.header('authorization', tokenService.createToken({ username: user.username }));
         res.status(201).end();
         sendWelcome();
       })
@@ -129,7 +129,7 @@ function reset(req, res, next) {
   };
 
   function validateToken(userFound) {
-    return jwt.validateToken(req, userFound.password);
+    return tokenService.validateToken(req, userFound.password);
   }
 
   function hashPassword() {

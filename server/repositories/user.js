@@ -1,4 +1,4 @@
-const mongo = require('../middlewares/database');
+const mongo = require('../services/database');
 
 function findByUsername(username) {
   return mongo.get().collection('users').findOne({ username });

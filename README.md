@@ -25,7 +25,7 @@ Boilerplate using [Node.js](https://nodejs.org/), [MongoDB](https://www.mongodb.
     git clone --depth=1 https://github.com/pedrokehl/starter-nodejs-rest.git
     
     # Change directory
-    cd myproject
+    cd starter-nodejs-rest
     
     # Install NPM dependencies
     npm install
