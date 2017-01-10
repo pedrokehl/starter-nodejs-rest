@@ -7,15 +7,9 @@ const userValidation = require('../validations/user');
 const url = require('url');
 
 function checkReset(req, res, next) {
-    const username = req.params.username;
-
-    function validateToken(userFound) {
-        return tokenService.validateToken(req, userFound.password);
-    }
-
-    userRepository.findByUsername(username)
+    userRepository.findByUsername(req.params.username)
         .then(userValidation.validateToLogin)
-        .then(validateToken)
+        .then(userFound => tokenService.validateToken(req, userFound.password))
         .then(() => {
             res.end();
         })
@@ -50,11 +44,7 @@ function forgot(req, res, next) {
             subject: '[Starter] - Recover your password'
         };
 
-        const emailData = {
-            recoveryUrl
-        };
-
-        email.sendMail(emailConfig, emailData, 'email-reset.html');
+        email.sendMail(emailConfig, { recoveryUrl }, 'email-reset.html');
     }).catch(next);
 
     res.end();
@@ -66,14 +56,10 @@ function login(req, res, next) {
         password: req.body.password
     };
 
-    function comparePassword(userFound) {
-        return crypt.compare(user.password, userFound.password);
-    }
-
     userValidation.validateRequired(user)
         .then(userRepository.findByUsername)
         .then(userValidation.validateToLogin)
-        .then(comparePassword)
+        .then(userFound => crypt.compare(user.password, userFound.password))
         .then(() => {
             res.header('authorization', tokenService.createToken({ username: user.username }));
             res.end();
@@ -84,40 +70,30 @@ function login(req, res, next) {
 function register(req, res, next) {
     const user = req.body;
 
-    function hashPassword() {
-        return crypt.hash(user.password);
-    }
-
-    function setHashedPassword(hash) {
-        user.password = hash;
-        return q.resolve(user);
-    }
-
-    function sendWelcome() {
-        if (user.email) {
-            const emailConfig = {
-                to: user.email,
-                subject: `[Starter] - Welcome ${user.username}`
-            };
-
-            const emailData = {
-                name: user.username
-            };
-
-            email.sendMail(emailConfig, emailData, 'welcome.html');
-        }
-    }
-
     userValidation.validateRequired(user)
         .then(userRepository.findByUsername)
         .then(userValidation.validateToInsert)
-        .then(hashPassword)
-        .then(setHashedPassword)
-        .then(userRepository.insert)
+        .then(() => crypt.hash(user.password))
+        .then((hash) => {
+            user.password = hash;
+            return userRepository.insert(user);
+        })
         .then(() => {
             res.header('authorization', tokenService.createToken({ username: user.username }));
             res.status(201).end();
-            sendWelcome();
+
+            if (user.email) {
+                const emailConfig = {
+                    to: user.email,
+                    subject: `[Starter] - Welcome ${user.username}`
+                };
+
+                const emailData = {
+                    name: user.username
+                };
+
+                email.sendMail(emailConfig, emailData, 'welcome.html');
+            }
         })
         .catch(next);
 }
@@ -128,24 +104,12 @@ function reset(req, res, next) {
         password: req.body.password
     };
 
-    function validateToken(userFound) {
-        return tokenService.validateToken(req, userFound.password);
-    }
-
-    function hashPassword() {
-        return crypt.hash(user.password);
-    }
-
-    function updateUser(hashResult) {
-        return userRepository.update({ username: user.username }, { password: hashResult });
-    }
-
     userValidation.validateRequired(user)
         .then(userRepository.findByUsername)
         .then(userValidation.validateToLogin)
-        .then(validateToken)
-        .then(hashPassword)
-        .then(updateUser)
+        .then(userFound => tokenService.validateToken(req, userFound.password))
+        .then(() => crypt.hash(user.password))
+        .then(hashResult => userRepository.update({ username: user.username }, { password: hashResult }))
         .then(() => {
             res.end();
         })
