@@ -1,3 +1,5 @@
+[![Code Climate](https://codeclimate.com/github/pedrokehl/starter-nodejs-rest/badges/gpa.svg)](https://codeclimate.com/github/pedrokehl/starter-nodejs-rest)
+
 Starter for a NODE.js REST Application
 =======================
 
