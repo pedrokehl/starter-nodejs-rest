@@ -16,6 +16,7 @@ Boilerplate using [Node.js](https://nodejs.org/), [MongoDB](https://www.mongodb.
 * Usage of ES6's features
 * Airbnb code style
 * HTML email template
+* Log all requests and errors easily
 
 ### Requirements
 * [NodeJS and NPM](http://nodejs.org/download)

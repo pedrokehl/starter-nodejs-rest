@@ -21,7 +21,8 @@
     "jsonwebtoken": "^7.1.9",
     "mongodb": "^2.2.10",
     "nodemailer": "^2.6.4",
-    "q": "^1.4.1"
+    "q": "^1.4.1",
+    "winston": "^2.3.0"
   },
   "devDependencies": {
     "eslint": "^3.11.1",

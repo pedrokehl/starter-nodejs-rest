@@ -6,8 +6,8 @@
     "indent": ["error", 4],
     "linebreak-style": "off",
     "max-len": ["error", 120],
-    "no-console": "off",
     "no-param-reassign": "off",
+    "no-underscore-dangle": "off",
     "no-unused-vars": ["error", { "args": "none" }],
     "no-use-before-define": "off",
     "prefer-template": "off"

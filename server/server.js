@@ -5,6 +5,8 @@ const database = require('./services/database');
 const email = require('./services/email');
 const errorHandler = require('./middlewares/errorHandler');
 const express = require('express');
+const logger = require('./services/logger');
+const mainMiddleware = require('./middlewares/main');
 const token = require('./middlewares/token');
 
 const app = express();
@@ -14,6 +16,7 @@ database.connect();
 app.routes = express.Router();
 app.token = token;
 
+app.use(mainMiddleware.first);
 app.use(compression());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -26,13 +29,10 @@ consign({ cwd: 'server' })
     .into(app);
 
 app.use(errorHandler);
-
-app.use((req, res) => {
-    res.status(404).end();
-});
+app.use(mainMiddleware.last);
 
 const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
-    console.log(`Express server listening on port ${port} in ${app.get('env')} mode.`);
+    logger.info(`Express server listening on port ${port} in ${app.get('env')} mode.`);
 });

@@ -1,10 +1,15 @@
+const logger = require('../services/logger');
+
 function errorHandler(err, req, res, next) {
     if (!err.status) {
-        console.error(err);
-        err = { status: 500 };
+        logger.error({ type: 'Internal Error', error: err });
+        err = {
+            content: 'Internal error',
+            status: 500
+        };
     }
-    res.status(err.status);
-    res.json(err).end();
+    res.setResponse(err, err.status);
+    next();
 }
 
 module.exports = errorHandler;

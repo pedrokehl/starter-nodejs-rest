@@ -1,6 +1,7 @@
-const nodemailer = require('nodemailer');
 const config = require('../config');
 const fs = require('fs');
+const nodemailer = require('nodemailer');
+const logger = require('./logger');
 
 const templates = [];
 
@@ -36,7 +37,7 @@ function init() {
 function sendMail(emailConfig, emailData, templateName) {
     getTemplate(templateName).templateSender(emailConfig, emailData, (error) => {
         if (error) {
-            console.error(error.response);
+            logger.error(error.response);
         }
     });
 }

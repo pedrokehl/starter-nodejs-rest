@@ -10,7 +10,8 @@ function checkReset(req, res, next) {
         .then(userValidation.validateToLogin)
         .then(userFound => tokenService.validateToken(req, userFound.password))
         .then(() => {
-            res.end();
+            res.setResponse();
+            next();
         })
         .catch(next);
 }
@@ -23,7 +24,8 @@ function forgot(req, res, next) {
         return;
     }
 
-    res.end();
+    res.setResponse();
+    next();
 
     userRepository.findOne(user).then((userFound) => {
         if (!userFound) {
@@ -59,7 +61,8 @@ function login(req, res, next) {
         .then(userFound => crypt.compare(user.password, userFound.password))
         .then(() => {
             res.header('authorization', tokenService.createToken({ username: user.username }));
-            res.end();
+            res.setResponse();
+            next();
         })
         .catch(next);
 }
@@ -77,7 +80,8 @@ function register(req, res, next) {
         })
         .then(() => {
             res.header('authorization', tokenService.createToken({ username: user.username }));
-            res.status(201).end();
+            res.setResponse({ message: 'user created', status: 201 });
+            next();
 
             if (user.email) {
                 const emailConfig = {
@@ -107,7 +111,10 @@ function reset(req, res, next) {
         .then(userFound => tokenService.validateToken(req, userFound.password))
         .then(() => crypt.hash(user.password))
         .then(hashResult => userRepository.update({ username: user.username }, { password: hashResult }))
-        .then(() => res.end())
+        .then(() => {
+            res.setResponse();
+            next();
+        })
         .catch(next);
 }
 
