@@ -6,4 +6,25 @@ const logger = new (winston.Logger)({
     ]
 });
 
+logger.saveRequest = (req, res) => {
+    const log = {
+        type: 'request',
+        request: {
+            method: req.method,
+            url: req.url,
+            body: req.body,
+            headers: req.headers,
+            dateTimeRequested: req.start
+        },
+        response: {
+            message: res.content.json,
+            status: res.content.status,
+            headers: res._headers
+        },
+        duration: Date.now() - req.start
+    };
+
+    logger.info(log);
+};
+
 module.exports = logger;
