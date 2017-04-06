@@ -11,7 +11,7 @@ test('GET /unprotected - Un protected', t => {
   agent
     .get('/unprotected')
     .expect('Content-Type', 'application/json; charset=utf-8')
-    .expect('etag', 'W/\"34-yNlK+O0dIKbrANGvdEQ3sg\"')
+    //.expect('etag', 'W/\"34-yNlK+O0dIKbrANGvdEQ3sg\"')
     .end(err => {
       t.ifError(err);
       t.same(0, 0, 'Count should be 0');
