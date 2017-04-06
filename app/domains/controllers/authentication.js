@@ -24,8 +24,8 @@ function forgot(req, res, next) {
     return
   }
 
-  res.setResponse();
-  next();
+  res.setResponse()
+  next()
 
   userRepository.findOne(user).then((userFound) => {
     if (!userFound) {

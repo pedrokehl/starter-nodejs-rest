@@ -1,4 +1,8 @@
+
+[![dependencies Status](https://david-dm.org/tigaly/starter-nodejs-rest/status.svg)](https://david-dm.org/tigaly/starter-nodejs-rest)
 [![Code Climate](https://codeclimate.com/github/tigaly/starter-nodejs-rest/badges/gpa.svg)](https://codeclimate.com/github/tigaly/starter-nodejs-rest)
+[![Join Gitter Chat](https://img.shields.io/badge/gitter-join%20chat%20%E2%86%92-brightgreen.svg?style=flat)](https://gitter.im/tigaly/starter-nodejs-rest?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&content=body_link)
+
 
 Starter for a NODE.js REST Application
 =======================
@@ -7,7 +11,6 @@ Boilerplate using [Node.js](https://nodejs.org/), [MongoDB](https://www.mongodb.
 
 ### Features:
 * MongoDB connection with easy configuration
-* Client folder will use the same host of your API
 * Token validation to protect your API
 * Easy project structure to create routes and controllers in separate files
 * Login and registration
