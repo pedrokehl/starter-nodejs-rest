@@ -1,4 +1,4 @@
-[![Code Climate](https://codeclimate.com/github/pedrokehl/starter-nodejs-rest/badges/gpa.svg)](https://codeclimate.com/github/pedrokehl/starter-nodejs-rest)
+[![Code Climate](https://codeclimate.com/github/tigaly/starter-nodejs-rest/badges/gpa.svg)](https://codeclimate.com/github/tigaly/starter-nodejs-rest)
 
 Starter for a NODE.js REST Application
 =======================
@@ -25,7 +25,7 @@ Boilerplate using [Node.js](https://nodejs.org/), [MongoDB](https://www.mongodb.
 ### Getting Started
 
     # Get the latest snapshot
-    git clone --depth=1 https://github.com/pedrokehl/starter-nodejs-rest.git
+    git clone https://github.com/tigaly/starter-nodejs-rest.git
     
     # Change directory
     cd starter-nodejs-rest
@@ -38,4 +38,4 @@ Boilerplate using [Node.js](https://nodejs.org/), [MongoDB](https://www.mongodb.
     
 ### What's next?
 
-* Client side example with React
+* Client side example with React (antd and dvajs)

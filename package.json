@@ -3,14 +3,15 @@
   "version": "1.0.0",
   "description": "Starter for a Node.js RESTful Application using MongoDB and JSON Web Token",
   "license": "MIT",
-  "author": "Pedro Affonso Kehl",
+  "author": "Pedro Affonso Kehl, tigaly",
   "repository": {
     "type": "git",
-    "url": "https://github.com/pedrokehl/starter-nodejs-rest"
+    "url": "https://github.com/tigaly/starter-nodejs-rest"
   },
   "scripts": {
-    "start": "node server/server.js",
-    "nodemon": "nodemon server/server.js"
+    "start": "node app/app.js",
+    "nodemon": "nodemon app/app.js",
+    "test": "babel-tape-runner test/test-*.js"
   },
   "dependencies": {
     "bcryptjs": "^2.3.0",
@@ -25,12 +26,10 @@
     "winston": "^2.3.0"
   },
   "devDependencies": {
-    "eslint": "^3.11.1",
-    "eslint-config-airbnb": "^13.0.0",
-    "eslint-plugin-import": "^2.1.0",
-    "eslint-plugin-jsx-a11y": "^2.2.3",
-    "eslint-plugin-react": "^6.6.0",
-    "nodemon": "^1.11.0"
+    "nodemon": "^1.11.0",
+    "babel-tape-runner": "~2.0.1",
+    "supertest": "*",
+    "tape": "~4.6.0"
   },
-  "main": "server/server.js"
+  "main": "app/app.js"
 }
