@@ -19,7 +19,7 @@ Boilerplate using [Node.js](https://nodejs.org/), [MongoDB](https://www.mongodb.
 * Recover account sending an email with an unique token
 * Easy environment configuration
 * Usage of ES6's features
-* HTML email template
+* Functional paradigm
 * Log all requests and errors easily
 
 ### Requirements

@@ -23,12 +23,11 @@ function forgot(req, res, next) {
     next({status: 400, content: 'You must send the email'})
     return
   }
-
   res.setResponse()
-  next()
 
   userRepository.findOne(user).then((userFound) => {
     if (!userFound) {
+      next()
       return
     }
 
@@ -42,10 +41,12 @@ function forgot(req, res, next) {
 
     const emailConfig = {
       to: user.email,
-      subject: '[Starter] - Recover your password'
+      subject: '[Starter] - Recover your password',
+      html: `<a href="${recoveryUrl}" target="_blank">Click here to recover your account.</a>`
     }
 
-    email.sendMail(emailConfig, {recoveryUrl}, 'email-reset.html')
+    email.sendMail(emailConfig)
+    next()
   }).catch(next)
 }
 
@@ -81,20 +82,15 @@ function register(req, res, next) {
     .then(() => {
       res.header('authorization', tokenService.createToken({username: user.username}))
       res.setResponse({message: 'user created', status: 201})
-      next()
-
       if (user.email) {
         const emailConfig = {
           to: user.email,
-          subject: `[Starter] - Welcome ${user.username}`
+          subject: `[Starter] - Welcome ${user.username}`,
+          html: `<p>Welcome ${user.username}.</p>`
         }
-
-        const emailData = {
-          name: user.username
-        }
-
-        email.sendMail(emailConfig, emailData, 'welcome.html')
+        email.sendMail(emailConfig)
       }
+      next()
     })
     .catch(next)
 }

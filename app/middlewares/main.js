@@ -1,6 +1,6 @@
 const logger = require('../services/logger')
 
-function first(req, res, next) {
+const first = (req, res, next) => {
   req.start = new Date()
 
   res.setResponse = (json, status = 200) => {
@@ -13,7 +13,7 @@ function first(req, res, next) {
   next()
 }
 
-function last(req, res) {
+const last = (req, res) => {
   if (!req.used) {
     res.status(404)
   }

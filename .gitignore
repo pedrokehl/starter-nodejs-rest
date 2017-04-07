@@ -76,5 +76,9 @@ jspm_packages
 *.tgz
 
 
+# Config
+config
+
 ### Less ###
+
 

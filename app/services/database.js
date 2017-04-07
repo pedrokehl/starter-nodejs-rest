@@ -11,7 +11,7 @@ function connect() {
   mongoClient.connect(url, (err, db) => {
     if (err) {
       logger.error(err.message)
-      process.exit(1)
+      throw new Error(err.message)
     }
     logger.info('Mongo connected')
     dbObject = db

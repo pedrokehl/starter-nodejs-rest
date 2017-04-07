@@ -2,19 +2,17 @@
   "mongo": {
     "server": "localhost",
     "port": 27017,
-    "database": "yourDatabase"
+    "database": "express-server"
   },
   "jwt": {
     "secret": "TOP-SECRET",
     "expiresIn": 600
   },
   "email": {
-    "host": "smtp.gmail.com",
-    "port": 465,
-    "secure": true,
+    "service": "QQ",
     "auth": {
-      "user": "your-email@gmail.com",
-      "pass": "your-password"
+      "user": "tigaly@qq.com",
+      "pass": "asteeilqbrxobhic"
     }
   }
 }

@@ -1,6 +1,6 @@
 const logger = require('../services/logger')
 
-function errorHandler(err, req, res, next) {
+const errorHandler = (err, req, res, next) => {
   if (!err.status) {
     logger.error({type: 'Internal Error', error: err})
     err = {

@@ -3,44 +3,36 @@ const fs = require('fs')
 const nodemailer = require('nodemailer')
 const logger = require('./logger')
 
-const templates = []
+let clientIsValid = false
 
-function getTemplate(templateName) {
-  return templates.find(element => element.filename === templateName)
-}
+const transporter = nodemailer.createTransport(config.email)
 
-function setTemplate(folder, filename, transporter) {
-  fs.readFile(folder + filename, 'utf8', (errFile, data) => {
-    const template = {html: data}
-    const defaults = {from: '"Starter NODE.js REST" <starter.nodejs.rest@gmail.com>'}
-
-    const templateSender = transporter.templateSender(template, defaults)
-
-    templates.push({
-      filename,
-      templateSender
-    })
-  })
-}
-
-function init() {
-  const templatesFolder = './app/modules/templates/'
-  const transporter = nodemailer.createTransport(config.email)
-
-  fs.readdir(templatesFolder, (errDir, files) => {
-    files.forEach((file) => {
-      setTemplate(templatesFolder, file, transporter)
-    })
-  })
-}
-
-function sendMail(emailConfig, emailData, templateName) {
-  getTemplate(templateName).templateSender(emailConfig, emailData, (error) => {
+const init = () => {
+  transporter.verify((error, success) => {
     if (error) {
-      logger.error(error.response)
+      clientIsValid = false
+      logger.error('fail to collect mail server，retry after 1 hour', error);
+      setTimeout(init, 1000 * 60 * 60)
+    } else {
+      clientIsValid = true
+      logger.info('collect to mail server successful')
     }
   })
 }
+
+const sendMail = mailOptions => {
+  if (!clientIsValid) {
+    logger.error('fail to collect mail server, cannot send the mail')
+    return false
+  }
+  mailOptions.from = '"Void Four👻" <tigaly@qq.com>'
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) return logger.error(error)
+    logger.info('Message %s sent: %s', info.messageId, info.response)
+  })
+}
+
 
 module.exports = {
   init,

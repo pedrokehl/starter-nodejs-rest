@@ -4,8 +4,7 @@ function validateRequired(userToValidate) {
   if (!userToValidate || !userToValidate.username || !userToValidate.password) {
     return q.reject({status: 400, content: 'You must send the username and the password'})
   }
-
-  return q.resolve(userToValidate.username);
+  return q.resolve(userToValidate.username)
 }
 
 function validateToInsert(user) {
@@ -17,7 +16,7 @@ function validateToInsert(user) {
 
 function validateToLogin(user) {
   if (!user) {
-    return q.reject({status: 401, content: 'User not found'});
+    return q.reject({status: 401, content: 'User not found'})
   }
   return q.resolve(user)
 }

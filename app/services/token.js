@@ -2,8 +2,8 @@ const jwt = require('jsonwebtoken')
 const config = require('../../config')
 const q = require('q')
 
-function createToken(object, expiresIn = config.jwt.expiresIn, secret = config.jwt.secret) {
-  return jwt.sign(object, secret, {expiresIn})
+const createToken = (object, expiresIn = config.jwt.expiresIn, secret = config.jwt.secret) => {
+  jwt.sign(object, secret, {expiresIn})
 }
 
 function validateToken(req, secret = config.jwt.secret) {
