@@ -17,6 +17,6 @@ test('GET /unprotected - Un protected', t => {
       t.same(0, 0, 'Count should be 0');
       t.end();
     });
-})
+});
 
 test.onFinish(() => process.exit(0));
