@@ -8,7 +8,7 @@ const app = require('../app/app');
 const agent = request.agent(app);
 
 test('GET /unprotected - Un protected', t => {
-    agent
+  agent
     .get('/unprotected')
     .expect('Content-Type', 'application/json; charset=utf-8')
     .end(err => {
