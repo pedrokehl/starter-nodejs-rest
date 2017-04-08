@@ -80,7 +80,7 @@ jspm_packages
 config
 
 # Test
-.test
+test
 
 ### Less ###
 
