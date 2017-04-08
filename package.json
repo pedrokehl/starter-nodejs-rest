@@ -11,7 +11,8 @@
   "scripts": {
     "start": "node app/app.js",
     "nodemon": "nodemon app/app.js",
-    "test": "babel-tape-runner test/test-*.js"
+    "test": "babel-tape-runner test/test-*.js",
+    "check": "eslint ./app"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -23,11 +24,18 @@
     "mongodb": "^2.2.25",
     "nodemailer": "^4.0.0",
     "q": "^1.5.0",
-    "winston": "^2.3.1"
+    "winston": "^2.3.1",
+    "babel-plugin-import": "^1.1.1",
+    "babel-runtime": "^6.23.0"
   },
   "devDependencies": {
-    "nodemon": "^1.11.0",
     "babel-tape-runner": "~2.0.1",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.10.3",
+    "nodemon": "^1.11.0",
     "supertest": "^3.0.0",
     "tape": "~4.6.3"
   },

@@ -79,6 +79,9 @@ jspm_packages
 # Config
 config
 
+# Test
+test
+
 ### Less ###
 
 
