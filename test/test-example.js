@@ -4,8 +4,8 @@
 
 const test = require('tape');
 const request = require('supertest');
-const app = require('../app/app');
 const agent = request.agent(app);
+const app = require('../app/app');
 
 test('GET /unprotected - Un protected', t => {
   agent
@@ -15,7 +15,7 @@ test('GET /unprotected - Un protected', t => {
       t.ifError(err);
       t.same(0, 0, 'Count should be 0');
       t.end();
-    })
+    });
 })
 
 test.onFinish(() => process.exit(0));
