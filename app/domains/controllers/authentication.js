@@ -27,9 +27,7 @@ const forgot = (req, res, next) => {
       next({ status: 400, content: 'The user is not found' });
       return;
     }
-    const token = tokenService.createToken(
-      { username: userFound.username }, 86400, userFound.password,
-    );
+    const token = tokenService.createToken({ username: userFound.username }, 86400, userFound.password);
     const recoveryUrl = url.format({
       protocol: req.protocol,
       host: req.get('host'),
@@ -102,10 +100,7 @@ const reset = (req, res, next) => {
     .then(userValidation.validateToLogin)
     .then(userFound => tokenService.validateToken(req, userFound.password))
     .then(() => crypt.hash(user.password))
-    .then(hashResult => userRepository.update(
-      { username: user.username },
-      { password: hashResult },
-    ))
+    .then(hashResult => userRepository.update({ username: user.username }, { password: hashResult }))
     .then(() => {
       res.setResponse();
       next();

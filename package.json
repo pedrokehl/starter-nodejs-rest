@@ -12,7 +12,7 @@
     "start": "node app/app.js",
     "nodemon": "nodemon app/app.js",
     "test": "babel-tape-runner test/test-*.js",
-    "check": "eslint ./app"
+    "eslint": "eslint ./app"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
