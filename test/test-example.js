@@ -4,7 +4,9 @@
 
 const test = require('tape');
 const request = require('supertest');
-const agent = request.agent('../app/app');
+const app = require('../app/app');
+
+const agent = request.agent(app);
 
 test('GET /unprotected - Un protected', t => {
   agent
