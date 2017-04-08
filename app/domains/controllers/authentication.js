@@ -56,7 +56,7 @@ const login = (req, res, next) => {
     .then(userFound => crypt.compare(user.password, userFound.password))
     .then(() => {
       res.header('authorization', tokenService.createToken({ username: user.username }));
-      res.setResponse({ message: 'login sucessful' , status: 200 });
+      res.setResponse({ message: 'login sucessful', status: 200 });
       next();
     })
     .catch(next);

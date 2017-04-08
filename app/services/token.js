@@ -2,9 +2,9 @@ const jwt = require('jsonwebtoken');
 const q = require('q');
 const config = require('../../config');
 
-const createToken = (object, expiresIn = config.jwt.expiresIn, secret = config.jwt.secret) => {
+function createToken(object, expiresIn = config.jwt.expiresIn, secret = config.jwt.secret) {
   return jwt.sign(object, secret, { expiresIn });
-};
+}
 
 const validateToken = (req, secret = config.jwt.secret) => {
   const deferred = q.defer();
