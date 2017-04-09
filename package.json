@@ -3,34 +3,39 @@
   "version": "1.0.0",
   "description": "Starter for a Node.js RESTful Application using MongoDB and JSON Web Token",
   "license": "MIT",
-  "author": "Pedro Affonso Kehl",
+  "author": "Pedro Affonso Kehl, tigaly",
   "repository": {
     "type": "git",
-    "url": "https://github.com/pedrokehl/starter-nodejs-rest"
+    "url": "https://github.com/tigaly/starter-nodejs-rest"
   },
   "scripts": {
-    "start": "node server/server.js",
-    "nodemon": "nodemon server/server.js"
+    "start": "node app/app.js",
+    "nodemon": "nodemon app/app.js",
+    "test": "babel-tape-runner test/test-*.js",
+    "eslint": "eslint ./app"
   },
   "dependencies": {
-    "bcryptjs": "^2.3.0",
-    "body-parser": "~1.15.1",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "~1.17.1",
     "compression": "^1.6.2",
-    "consign": "^0.1.2",
-    "express": "~4.14.0",
-    "jsonwebtoken": "^7.1.9",
-    "mongodb": "^2.2.10",
-    "nodemailer": "^2.6.4",
-    "q": "^1.4.1",
-    "winston": "^2.3.0"
+    "consign": "^0.1.4",
+    "express": "~4.15.2",
+    "jsonwebtoken": "^7.3.0",
+    "mongodb": "^2.2.25",
+    "nodemailer": "^4.0.0",
+    "q": "^1.5.0",
+    "winston": "^2.3.1",
+    "supertest": "^3.0.0",
+    "tape": "~4.6.3",
+    "babel-tape-runner": "^2.0.1"
   },
   "devDependencies": {
-    "eslint": "^3.11.1",
-    "eslint-config-airbnb": "^13.0.0",
-    "eslint-plugin-import": "^2.1.0",
-    "eslint-plugin-jsx-a11y": "^2.2.3",
-    "eslint-plugin-react": "^6.6.0",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.10.3",
     "nodemon": "^1.11.0"
   },
-  "main": "server/server.js"
+  "main": "app/app.js"
 }

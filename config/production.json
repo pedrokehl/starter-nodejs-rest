@@ -1,0 +1,19 @@
+{
+  "mongo": {
+    "server": "localhost",
+    "port": 27017,
+    "database": "express-server"
+  },
+  "jwt": {
+    "secret": "TOP-SECRET",
+    "expiresIn": 600
+  },
+  "email": {
+    "service": "QQ",
+    "auth": {
+      "user": "your@qq.com",
+      "pass": "yourpass"
+    }
+  },
+  "mailFrom": "\"Void Four👻\" <tigaly@qq.com>"
+}

@@ -25,7 +25,7 @@ fabric.properties
 
 # *.iml
 # modules.xml
-# .idea/misc.xml
+# .idea
 # *.ipr
 
 
@@ -76,5 +76,12 @@ jspm_packages
 *.tgz
 
 
+# Config
+config
+
+# Test
+test
+
 ### Less ###
-*.css
+
+

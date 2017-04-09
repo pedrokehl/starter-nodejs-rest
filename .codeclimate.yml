@@ -17,5 +17,5 @@ engines:
       - javascript
 ratings:
   paths:
-  - server/**
+  - app/**
   - "**.js"
