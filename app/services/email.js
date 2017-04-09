@@ -32,8 +32,12 @@ function sendMail(mailOptions) {
   return true;
 }
 
+function getMailFrom() {
+  return config.mailFrom;
+}
 
 module.exports = {
   init,
   sendMail,
+  getMailFrom,
 };

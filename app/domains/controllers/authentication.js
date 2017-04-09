@@ -34,7 +34,7 @@ const forgot = (req, res, next) => {
       pathname: `reset/${userFound.username}/${token}`,
     });
     const emailConfig = {
-      from: '"Void Four👻" <tigaly@qq.com>',
+      from: email.getMailFrom(),
       to: user.email,
       subject: '[Starter] - Recover your password',
       html: `<a href="${recoveryUrl}" target="_blank">Click here to recover your account.</a>`,
@@ -77,7 +77,7 @@ const register = (req, res, next) => {
       res.setResponse({ message: 'user created', status: 201 });
       if (user.email) {
         const emailConfig = {
-          from: '"Void Four👻" <tigaly@qq.com>',
+          from: email.getMailFrom(),
           to: user.email,
           subject: `[Starter] - Welcome ${user.username}`,
           html: `<p>Welcome ${user.username}.</p>`,

@@ -21,7 +21,7 @@ logger.saveRequest = (req, res) => {
       status: res.content.status,
       headers: res.headers,
     },
-    duration: Date.now() - req.start,
+    duration: `${Date.now() - req.start} ms`,
   };
   logger.info(log);
 };

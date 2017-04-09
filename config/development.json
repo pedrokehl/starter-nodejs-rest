@@ -11,8 +11,9 @@
   "email": {
     "service": "QQ",
     "auth": {
-      "user": "tigaly@qq.com",
-      "pass": "asteeilqbrxobhic"
+      "user": "your@qq.com",
+      "pass": "yourpass"
     }
-  }
+  },
+  "mailFrom": "\"Void Four👻\" <tigaly@qq.com>"
 }
