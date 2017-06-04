@@ -1,25 +1,27 @@
 const jwt = require('jsonwebtoken');
 const config = require('../config');
-const q = require('q');
+const secureRandom = require('secure-random');
 
-function createToken(object, expiresIn = config.jwt.expiresIn, secret = config.jwt.secret) {
+const SECRET = secureRandom(256, { type: 'Buffer' });
+
+function createToken(object, expiresIn = config.jwt.expiresIn, secret = SECRET) {
     return jwt.sign(object, secret, { expiresIn });
 }
 
-function validateToken(req, secret = config.jwt.secret) {
-    const deferred = q.defer();
+function validateToken(req, secret = SECRET) {
     const token = req.body.token || req.params.token || req.headers.authorization;
 
-    jwt.verify(token, secret, (err, decoded) => {
-        if (err) {
-            deferred.reject({ status: 403 });
-        }
-        else {
-            req.decoded = decoded;
-            deferred.resolve();
-        }
+    return new Promise((resolve, reject) => {
+        jwt.verify(token, secret, (err, decoded) => {
+            if (err) {
+                reject({ status: 403 });
+            }
+            else {
+                req.decoded = decoded;
+                resolve();
+            }
+        });
     });
-    return deferred.promise;
 }
 
 module.exports = {

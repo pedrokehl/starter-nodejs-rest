@@ -2,7 +2,7 @@ const winston = require('winston');
 
 const logger = new (winston.Logger)({
     transports: [
-        new (winston.transports.File)({ filename: 'somefile.log' })
+        new (winston.transports.File)({ filename: 'starter.log' })
     ]
 });
 
@@ -12,14 +12,10 @@ logger.saveRequest = (req, res) => {
         request: {
             method: req.method,
             url: req.url,
-            body: req.body,
-            headers: req.headers,
             dateTimeRequested: req.start
         },
         response: {
-            message: res.content.json,
-            status: res.content.status,
-            headers: res._headers
+            status: res.content.status
         },
         duration: Date.now() - req.start
     };

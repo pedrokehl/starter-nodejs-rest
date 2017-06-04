@@ -2,11 +2,10 @@
   "mongo": {
     "server": "localhost",
     "port": 27017,
-    "database": "yourDatabase"
+    "database": "starter"
   },
   "jwt": {
-    "secret": "TOP-SECRET",
-    "expiresIn": 600
+    "expiresIn": 36000
   },
   "email": {
     "host": "smtp.gmail.com",
