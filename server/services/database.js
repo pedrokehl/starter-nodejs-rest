@@ -11,21 +11,10 @@ const port = config.mongo.port;
 function connect() {
     mongoose.connect('mongodb://' + server + ':' + port + '/' + db, { server: { auto_reconnect: true } });
 
-    mongoose.connection.on('error', (err) => {
-        logger.error({ type: 'MongoDB', message: err.message });
-    });
-
-    mongoose.connection.once('connected', () => {
-        logger.info({ type: 'MongoDB', message: 'Mongo connected' });
-    });
-
-    mongoose.connection.on('disconnected', () => {
-        logger.info({ type: 'MongoDB', message: 'Mongo disconnected' });
-    });
-
-    mongoose.connection.on('reconnected', () => {
-        logger.info({ type: 'MongoDB', message: 'Mongo reconnected' });
-    });
+    mongoose.connection.on('error', err => logger.error({ type: 'MongoDB', message: err.message }));
+    mongoose.connection.once('connected', () => logger.info({ type: 'MongoDB', message: 'Mongo connected' }));
+    mongoose.connection.on('disconnected', () => logger.info({ type: 'MongoDB', message: 'Mongo disconnected' }));
+    mongoose.connection.on('reconnected', () => logger.info({ type: 'MongoDB', message: 'Mongo reconnected' }));
 }
 
 const mongoConnection = {

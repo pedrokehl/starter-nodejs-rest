@@ -25,7 +25,7 @@ const UserSchema = mongoose.Schema({
             validator: email => User.findOne({ email }).then(user => !user),
             message: 'Email is already in use'
         },
-        match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
+        match: [/^\w+([-]?\w+)*@\w+([-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
     }
 });
 
