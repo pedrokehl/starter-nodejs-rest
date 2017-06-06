@@ -29,7 +29,7 @@ const UserSchema = mongoose.Schema({
     }
 });
 
-UserSchema.pre('save', function(next) {
+UserSchema.pre('save', function (next) {
     const user = this;
     crypt.hash(user.password).then((hash) => {
         user.password = hash;

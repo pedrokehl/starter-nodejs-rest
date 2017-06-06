@@ -5,9 +5,8 @@ const logger = require('./logger');
 mongoose.Promise = Promise;
 
 const db = config.mongo.database;
-
-const server = process.env.MONGO_ADDR || config.mongo.server;
-const port = process.env.MONGO_PORT || config.mongo.port;
+const server = config.mongo.server;
+const port = config.mongo.port;
 
 function connect() {
     mongoose.connect('mongodb://' + server + ':' + port + '/' + db, { server: { auto_reconnect: true } });

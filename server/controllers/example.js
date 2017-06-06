@@ -1,10 +1,10 @@
 function getProtected(req, res, next) {
-    res.setResponse({ message: 'Great! You have access for this protected endpoint' });
+    res.setResponse('Great! You have access for this protected endpoint');
     next();
 }
 
 function getUnprotected(req, res, next) {
-    res.setResponse({ message: 'You have free access for this endpoint' });
+    res.setResponse('You have free access for this endpoint');
     next();
 }
 

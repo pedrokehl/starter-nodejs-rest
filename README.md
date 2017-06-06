@@ -17,6 +17,7 @@ Boilerplate using [Node.js](https://nodejs.org/), [MongoDB](https://www.mongodb.
 * Airbnb code style
 * HTML email template
 * Log all requests and errors easily
+* Mongoose schemas
 
 ### Requirements
 * [NodeJS and NPM](http://nodejs.org/download)
