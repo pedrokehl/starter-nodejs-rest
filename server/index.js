@@ -16,9 +16,9 @@ database.connect();
 app.routes = express.Router();
 app.token = token;
 
+app.use(bodyParser.json());
 app.use(mainMiddleware.first);
 app.use(compression());
-app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(`${__dirname}/../client`));
 app.use('/api/', app.routes);

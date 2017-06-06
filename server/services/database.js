@@ -1,28 +1,45 @@
 const config = require('../config');
-const mongoClient = require('mongodb').MongoClient;
+const mongoose = require('mongoose');
 const logger = require('./logger');
 
-const auth = config.mongo.username ? `${config.mongo.username}:${config.mongo.password}@` : '';
-const url = `mongodb://${auth}${config.mongo.server}:${config.mongo.port}/${config.mongo.database}`;
+mongoose.Promise = Promise;
 
-let dbObject;
+const db = config.mongo.database;
+
+const server = process.env.MONGO_ADDR || config.mongo.server;
+const port = process.env.MONGO_PORT || config.mongo.port;
 
 function connect() {
-    mongoClient.connect(url, (err, db) => {
-        if (err) {
-            logger.error(err.message);
-            process.exit(1);
-        }
-        logger.info('Mongo connected');
-        dbObject = db;
+    mongoose.connect('mongodb://' + server + ':' + port + '/' + db, { server: { auto_reconnect: true } });
+
+    mongoose.connection.on('error', (err) => {
+        logger.error({ type: 'MongoDB', message: err.message });
+    });
+
+    mongoose.connection.once('connected', () => {
+        logger.info({ type: 'MongoDB', message: 'Mongo connected' });
+    });
+
+    mongoose.connection.on('disconnected', () => {
+        logger.info({ type: 'MongoDB', message: 'Mongo disconnected' });
+    });
+
+    mongoose.connection.on('reconnected', () => {
+        logger.info({ type: 'MongoDB', message: 'Mongo reconnected' });
     });
 }
 
-function get() {
-    return dbObject;
-}
-
-module.exports = {
-    connect,
-    get
+const mongoConnection = {
+    connect
 };
+
+mongoose.set('debug', (collection, method, query) => {
+    logger.info({
+        type: 'query',
+        collection,
+        method,
+        query
+    });
+});
+
+module.exports = mongoConnection;

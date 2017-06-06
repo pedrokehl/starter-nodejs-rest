@@ -14,7 +14,7 @@ function validateToken(req, secret = SECRET) {
     return new Promise((resolve, reject) => {
         jwt.verify(token, secret, (err, decoded) => {
             if (err) {
-                reject({ status: 403 });
+                reject({ status: 403, content: 'You are not allowed to access this page' });
             }
             else {
                 req.decoded = decoded;

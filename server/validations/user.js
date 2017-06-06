@@ -3,14 +3,7 @@ function validateRequired(userToValidate) {
         return Promise.reject({ status: 400, content: 'You must send the username and the password' });
     }
 
-    return Promise.resolve(userToValidate.username);
-}
-
-function validateToInsert(user) {
-    if (user) {
-        return Promise.reject({ status: 400, content: 'A user with that username already exists' });
-    }
-    return Promise.resolve();
+    return Promise.resolve(userToValidate);
 }
 
 function validateToLogin(user) {
@@ -22,6 +15,5 @@ function validateToLogin(user) {
 
 module.exports = {
     validateRequired,
-    validateToInsert,
     validateToLogin
 };
