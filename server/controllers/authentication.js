@@ -30,17 +30,13 @@ function forgot(req, res, next) {
     UserModel.findOne(user)
         .then(userValidation.validateToLogin)
         .then((userFound) => {
+            const emailConfig = { to: user.email, subject: '[Starter] - Recover your password' };
             const token = tokenService.createToken({ username: userFound.username }, 86400, userFound.password);
             const recoveryUrl = url.format({
                 protocol: req.protocol,
                 host: req.get('host'),
                 pathname: `reset/${userFound.username}/${token}`
             });
-
-            const emailConfig = {
-                to: user.email,
-                subject: '[Starter] - Recover your password'
-            };
 
             email.sendMail(emailConfig, { recoveryUrl }, 'email-reset.html');
         })
@@ -78,14 +74,12 @@ function register(req, res, next) {
             res.setResponse(user, 201);
             next();
 
-            if (user.email) {
-                const emailConfig = {
-                    to: user.email,
-                    subject: `[Starter] - Welcome ${user.username}`
-                };
+            const emailConfig = {
+                to: user.email,
+                subject: `[Starter] - Welcome ${user.username}`
+            };
 
-                email.sendMail(emailConfig, { name: user.username }, 'welcome.html');
-            }
+            email.sendMail(emailConfig, { name: user.username }, 'welcome.html');
         })
         .catch(next);
 }
