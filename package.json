@@ -33,5 +33,5 @@
     "eslint-plugin-react": "^7.0.1",
     "nodemon": "^1.11.0"
   },
-  "main": "server/server.js"
+  "main": "server/index.js"
 }
