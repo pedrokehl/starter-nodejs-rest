@@ -1,4 +1,5 @@
 {
+  "port": 80,
   "mongo": {
     "server": "localhost",
     "port": 27017,

@@ -8,6 +8,7 @@ const express = require('express');
 const logger = require('./services/logger');
 const mainMiddleware = require('./middlewares/main');
 const token = require('./middlewares/token');
+const config = require('./config');
 
 const app = express();
 
@@ -31,8 +32,4 @@ consign({ cwd: 'server' })
 app.use(errorHandler);
 app.use(mainMiddleware.last);
 
-const port = process.env.PORT || 3000;
-
-app.listen(port, () => {
-    logger.info(`Express server listening on port ${port} in ${app.get('env')} mode.`);
-});
+app.listen(config.port, () => logger.info(`Server listening on port ${config.port} in ${app.get('env')} mode.`));

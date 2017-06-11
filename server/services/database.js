@@ -4,12 +4,10 @@ const logger = require('./logger');
 
 mongoose.Promise = Promise;
 
-const db = config.mongo.database;
-const server = config.mongo.server;
-const port = config.mongo.port;
+const dbUrl = 'mongodb://' + config.mongo.server + ':' + config.mongo.port + '/' + config.mongo.database;
 
 function connect() {
-    mongoose.connect('mongodb://' + server + ':' + port + '/' + db, { server: { auto_reconnect: true } });
+    mongoose.connect(dbUrl, { server: { auto_reconnect: true } });
 
     mongoose.connection.on('error', err => logger.error({ type: 'MongoDB', message: err.message }));
     mongoose.connection.once('connected', () => logger.info({ type: 'MongoDB', message: 'Mongo connected' }));
