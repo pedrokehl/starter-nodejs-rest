@@ -15,16 +15,7 @@ function compare(string, hashValue) {
 
 function hash(string) {
     const salt = 5;
-    return new Promise((resolve, reject) => {
-        bcrypt.hash(string, salt, (err, result) => {
-            if (err) {
-                reject(err);
-            }
-            else {
-                resolve(result);
-            }
-        });
-    });
+    return bcrypt.hash(string, salt);
 }
 
 module.exports = {
