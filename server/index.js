@@ -24,7 +24,7 @@ app.use(mainMiddleware.first);
 app.use(express.static(`${__dirname}/../client`));
 app.use('/api/', app.routes);
 
-consign({ cwd: 'server' })
+consign({ cwd: 'server', logger })
     .include('controllers')
     .then('routes')
     .into(app);
