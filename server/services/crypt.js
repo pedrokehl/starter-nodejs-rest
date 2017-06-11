@@ -1,5 +1,7 @@
 const bcrypt = require('bcryptjs');
 
+const SALT = 5;
+
 function compare(string, hashValue) {
     return new Promise((resolve, reject) => {
         bcrypt.compare(string, hashValue, (err, result) => {
@@ -14,8 +16,7 @@ function compare(string, hashValue) {
 }
 
 function hash(string) {
-    const salt = 5;
-    return bcrypt.hash(string, salt);
+    return bcrypt.hash(string, SALT);
 }
 
 module.exports = {
