@@ -21,7 +21,7 @@ app.use(compression());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(mainMiddleware.first);
-app.use(express.static(`${__dirname}/../client`));
+app.use(/^(?!\/api).*/, express.static(`${__dirname}/../client`));
 app.use('/api/', app.routes);
 
 consign({ cwd: 'server', logger })
