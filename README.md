@@ -1,6 +1,11 @@
-[![Code Climate](https://codeclimate.com/github/pedrokehl/starter-nodejs-rest/badges/gpa.svg)](https://codeclimate.com/github/pedrokehl/starter-nodejs-rest)
+[![Code Climate](https://api.codeclimate.com/v1/badges/3852da308601e1d384cb/maintainability)](https://codeclimate.com/github/pedrokehl/starter-nodejs-rest/maintainability)
 
-Starter for a NODE.js REST Application
+```diff
+- DEPRECATED!!!
+- This project was made more than one year ago, and is not maintained anymore.
+```
+
+[DEPRECATED] Starter for a NODE.js REST Application
 =======================
 
 Boilerplate using [Node.js](https://nodejs.org/), [MongoDB](https://www.mongodb.com/) and [JSON Web Token](https://jwt.io/).
